@@ -78,7 +78,7 @@ public class CustIdManager extends Dialog {
 	private void createContents() {
 		shlDeviceUpdateChecker = new Shell(getParent(), getStyle());
 		shlDeviceUpdateChecker.setSize(450, 336);
-		shlDeviceUpdateChecker.setText("cdfID Manager");
+		shlDeviceUpdateChecker.setText("cdfID管理器");
 		
 		tabFolder = new CTabFolder(shlDeviceUpdateChecker, SWT.BORDER);
 		tabFolder.setBounds(11, 10, 423, 256);
@@ -92,7 +92,7 @@ public class CustIdManager extends Dialog {
 			}
 		});
 		btnNewButton.setBounds(359, 272, 75, 25);
-		btnNewButton.setText("Close");
+		btnNewButton.setText("關閉");
 		
 		lblInfo = new Label(shlDeviceUpdateChecker, SWT.NONE);
 		lblInfo.setBounds(11, 244, 342, 15);
@@ -110,7 +110,7 @@ public class CustIdManager extends Dialog {
 			}
 		});
 		btnApply.setBounds(279, 272, 75, 25);
-		btnApply.setText("Apply");
+		btnApply.setText("應用");
 		btnApply.setEnabled(false);
 		parseModels();
 	}
@@ -136,7 +136,7 @@ public class CustIdManager extends Dialog {
 						  menuMgr.addMenuListener(new IMenuListener() {
 						    @Override
 						    public void menuAboutToShow(IMenuManager manager) {
-						    	manager.add(new Action("Add") {
+						    	manager.add(new Action("新增") {
 						            public void run() {
 										AddCustId add = new AddCustId(shlDeviceUpdateChecker,SWT.PRIMARY_MODAL | SWT.SHEET);
 										Properties item = (Properties)add.open(m);
@@ -148,7 +148,7 @@ public class CustIdManager extends Dialog {
 						            }
 						        });						    		
 						    	if (!tableViewer.getSelection().isEmpty()) {
-							    	manager.add(new Action("Edit") {
+							    	manager.add(new Action("編輯") {
 							            public void run() {
 											AddCustId add = new AddCustId(shlDeviceUpdateChecker,SWT.PRIMARY_MODAL | SWT.SHEET);
 											TableLine line = (TableLine)tableViewer.getTable().getSelection()[0].getData();
@@ -163,7 +163,7 @@ public class CustIdManager extends Dialog {
 											}
 							            }
 							        });
-							    	manager.add(new Action("Delete") {
+							    	manager.add(new Action("刪除") {
 							            public void run() {
 							            	m.RemoveCustId(((TableLine)tableViewer.getTable().getSelection()[0].getData()).getValueOf(0));
 							            	btnApply.setEnabled(true);

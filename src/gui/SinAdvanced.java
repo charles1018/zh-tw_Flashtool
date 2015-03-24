@@ -54,7 +54,7 @@ public class SinAdvanced extends Dialog {
 		fd_lblSinVersion.top = new FormAttachment(0, 10);
 		fd_lblSinVersion.left = new FormAttachment(0, 10);
 		lblSinVersion.setLayoutData(fd_lblSinVersion);
-		lblSinVersion.setText("Sin version :");
+		lblSinVersion.setText("Sin版本:");
 		
 		textVersion = new Text(shlSinEditor, SWT.BORDER);
 		textVersion.setEditable(false);
@@ -86,7 +86,7 @@ public class SinAdvanced extends Dialog {
 		fd_lblPartition.top = new FormAttachment(textVersion, 6);
 		fd_lblPartition.left = new FormAttachment(lblSinVersion, 0, SWT.LEFT);
 		lblPartition.setLayoutData(fd_lblPartition);
-		lblPartition.setText("Partition Info :");
+		lblPartition.setText("分區資料:");
 		
 		Label lblSpare = new Label(shlSinEditor, SWT.NONE);
 		fd_textSpare.top = new FormAttachment(lblSpare, 6);
@@ -94,7 +94,7 @@ public class SinAdvanced extends Dialog {
 		fd_lblSpare.top = new FormAttachment(textPartition, 6);
 		fd_lblSpare.left = new FormAttachment(lblSinVersion, 0, SWT.LEFT);
 		lblSpare.setLayoutData(fd_lblSpare);
-		lblSpare.setText("Spare Info :");
+		lblSpare.setText("其它資料:");
 		
 		textContent = new Text(shlSinEditor, SWT.BORDER);
 		textContent.setEditable(false);
@@ -114,7 +114,7 @@ public class SinAdvanced extends Dialog {
 		fd_lblContentType.top = new FormAttachment(textSpare, 6);
 		fd_lblContentType.left = new FormAttachment(lblSinVersion, 0, SWT.LEFT);
 		lblContentType.setLayoutData(fd_lblContentType);
-		lblContentType.setText("Content Type :");
+		lblContentType.setText("檔案類型:");
 		
 		Button btnClose = new Button(shlSinEditor, SWT.NONE);
 		fd_textPartition.right = new FormAttachment(btnClose, -12, SWT.RIGHT);
@@ -128,7 +128,7 @@ public class SinAdvanced extends Dialog {
 		fd_btnClose.bottom = new FormAttachment(100, -10);
 		fd_btnClose.right = new FormAttachment(100, -10);
 		btnClose.setLayoutData(fd_btnClose);
-		btnClose.setText("Close");
+		btnClose.setText("關閉");
 		
 		Button btnCreateSinAs = new Button(shlSinEditor, SWT.NONE);
 		btnCreateSinAs.addSelectionListener(new SelectionAdapter() {
@@ -141,7 +141,7 @@ public class SinAdvanced extends Dialog {
 		        dlg.setFilterExtensions(new String[]{"*.yaffs2"});
 
 		        // Change the title bar text
-		        dlg.setText("YAFFS2 File Chooser");
+		        dlg.setText("YAFFS2檔案選擇");
 		        // Calling open() will open and run the dialog.
 		        // It will return the selected directory, or
 		        // null if user cancels
@@ -159,7 +159,7 @@ public class SinAdvanced extends Dialog {
 		fd_btnCreateSinAs.top = new FormAttachment(btnClose, 0, SWT.TOP);
 		fd_btnCreateSinAs.right = new FormAttachment(btnClose, -6);
 		btnCreateSinAs.setLayoutData(fd_btnCreateSinAs);
-		btnCreateSinAs.setText("Create Sin As");
+		btnCreateSinAs.setText("建立Sin為");
 		
 		shlSinEditor.open();
 		shlSinEditor.layout();
@@ -178,7 +178,7 @@ public class SinAdvanced extends Dialog {
 	private void createContents() {
 		shlSinEditor = new Shell(getParent(), getStyle());
 		shlSinEditor.setSize(254, 275);
-		shlSinEditor.setText("Advanced Sin Editor");
+		shlSinEditor.setText("進階Sin編輯器");
 		shlSinEditor.setLayout(new FormLayout());
 	}
 }

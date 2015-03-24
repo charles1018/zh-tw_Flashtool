@@ -68,7 +68,7 @@ public class ElfEditor extends Dialog {
 	private void createContents() {
 		shlElfExtractor = new Shell(getParent(), getStyle());
 		shlElfExtractor.setSize(538, 153);
-		shlElfExtractor.setText("Elf Extractor");
+		shlElfExtractor.setText("Elf解壓轉換器");
 		shlElfExtractor.setLayout(new FormLayout());
 		
 		Composite composite = new Composite(shlElfExtractor, SWT.NONE);
@@ -102,7 +102,7 @@ public class ElfEditor extends Dialog {
 		        dlg.setFilterExtensions(new String[]{"*.elf"});
 
 		        // Change the title bar text
-		        dlg.setText("ELF File Chooser");
+		        dlg.setText("檔案選擇");
 		        // Calling open() will open and run the dialog.
 		        // It will return the selected directory, or
 		        // null if user cancels
@@ -115,7 +115,7 @@ public class ElfEditor extends Dialog {
 		        			textNbParts.setText(Integer.toString(elfobj.getNumPrograms()));
 		        			sourceFile.setText(dir);
 		        			btnExtract.setEnabled(true);
-		        			logger.info("You can now press the Unpack button to get the elf data content");
+		        			logger.info("現在你可以按解壓轉換鈕獲得elf檔案資料內容");
 		        		}
 		        		catch (Exception ex) {
 		        			ex.printStackTrace();
@@ -143,7 +143,7 @@ public class ElfEditor extends Dialog {
 		GridData gd_lblNewLabel = new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1);
 		gd_lblNewLabel.widthHint = 112;
 		lblNewLabel.setLayoutData(gd_lblNewLabel);
-		lblNewLabel.setText("Number of parts : ");
+		lblNewLabel.setText("零件數量: ");
 		
 		textNbParts = new Text(composite_1, SWT.BORDER);
 		textNbParts.setEditable(false);
@@ -160,7 +160,7 @@ public class ElfEditor extends Dialog {
 				}
 			}
 		});
-		btnExtract.setText("Unpack");
+		btnExtract.setText("解壓轉換");
 		btnExtract.setEnabled(false);
 		
 		Button btnClose = new Button(shlElfExtractor, SWT.NONE);
@@ -174,7 +174,7 @@ public class ElfEditor extends Dialog {
 		fd_btnClose.top = new FormAttachment(composite_1, 6);
 		fd_btnClose.right = new FormAttachment(composite, 0, SWT.RIGHT);
 		btnClose.setLayoutData(fd_btnClose);
-		btnClose.setText("Close");
+		btnClose.setText("關閉");
 
 	}
 }

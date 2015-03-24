@@ -61,7 +61,7 @@ public class BLUWizard extends Dialog {
 		if (ulcode.length()>0) {
 			btnUnlock.setEnabled(true);
 			if (_action.equals("R")) {
-				btnUnlock.setText("Relock");
+				btnUnlock.setText("上鎖");
 			}
 			btnGetUnlock.setEnabled(false);
 			textULCODE.setEditable(false);
@@ -91,9 +91,9 @@ public class BLUWizard extends Dialog {
 		    });
 		shlBootloaderUnlockWizard.setSize(286, 183);
 		if (_action.equals("R"))
-			shlBootloaderUnlockWizard.setText("BootLoader Relock Wizard");
+			shlBootloaderUnlockWizard.setText("上鎖導引");
 		else
-			shlBootloaderUnlockWizard.setText("BootLoader Unlock Wizard");
+			shlBootloaderUnlockWizard.setText("解鎖導引");
 		
 		Label lblImei = new Label(shlBootloaderUnlockWizard, SWT.NONE);
 		lblImei.setBounds(10, 10, 55, 15);
@@ -111,11 +111,11 @@ public class BLUWizard extends Dialog {
 			}
 		});
 		btnGetUnlock.setBounds(127, 34, 118, 25);
-		btnGetUnlock.setText("Get Unlock Code");
+		btnGetUnlock.setText("取得解鎖碼");
 		
 		Label lblUnlockCode = new Label(shlBootloaderUnlockWizard, SWT.NONE);
 		lblUnlockCode.setBounds(10, 68, 85, 15);
-		lblUnlockCode.setText("Unlock Code :");
+		lblUnlockCode.setText("解鎖碼:");
 		
 		textULCODE = new Text(shlBootloaderUnlockWizard, SWT.BORDER);
 		textULCODE.setBounds(106, 65, 164, 21);
@@ -125,7 +125,7 @@ public class BLUWizard extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (textULCODE.getText().length()==0) {
-					showErrorMessageBox("Your must enter an unlock code");
+					showErrorMessageBox("請輸入解鎖碼");
 					return;
 				}
 				if (_flash==null) {
@@ -163,8 +163,8 @@ public class BLUWizard extends Dialog {
 						ta.setPartition(2226);
 						//byte[] data = new byte[2];data[0]=0;data[1]=0;
 						//ta.setData(data);
-						logger.info("Relocking device");
-						WriteTAJob tj = new WriteTAJob("Write TA");
+						logger.info("正在上鎖裝置");
+						WriteTAJob tj = new WriteTAJob("寫入TA分區");
 						tj.addJobChangeListener(new IJobChangeListener() {
 							public void aboutToRun(IJobChangeEvent event) {}
 							public void awake(IJobChangeEvent event) {}
@@ -172,7 +172,7 @@ public class BLUWizard extends Dialog {
 							public void scheduled(IJobChangeEvent event) {}
 							public void sleeping(IJobChangeEvent event) {}
 							public void done(IJobChangeEvent event) {
-								logger.info("Relock finished");
+								logger.info("上鎖完成");
 								WriteTAJob res = (WriteTAJob) event.getJob();
 								WidgetTask.setEnabled(btnUnlock,!res.writeSuccess());
 							}
@@ -185,8 +185,8 @@ public class BLUWizard extends Dialog {
 						TaEntry ta = new TaEntry();
 						ta.setPartition(2226);
 						ta.setData(textULCODE.getText().getBytes());
-						logger.info("Unlocking device");
-						WriteTAJob tj = new WriteTAJob("Write TA");
+						logger.info("正在解鎖裝置");
+						WriteTAJob tj = new WriteTAJob("寫入TA分區");
 						tj.addJobChangeListener(new IJobChangeListener() {
 							public void aboutToRun(IJobChangeEvent event) {}
 							public void awake(IJobChangeEvent event) {}
@@ -194,7 +194,7 @@ public class BLUWizard extends Dialog {
 							public void scheduled(IJobChangeEvent event) {}
 							public void sleeping(IJobChangeEvent event) {}
 							public void done(IJobChangeEvent event) {
-								logger.info("Unlock finished");
+								logger.info("解鎖完成");
 								WriteTAJob res = (WriteTAJob) event.getJob();
 								WidgetTask.setEnabled(btnUnlock,!res.writeSuccess());
 							}
@@ -207,7 +207,7 @@ public class BLUWizard extends Dialog {
 			}
 		});
 		btnUnlock.setBounds(144, 92, 75, 25);
-		btnUnlock.setText("Unlock");
+		btnUnlock.setText("解鎖");
 		
 		Button btnNewButton_2 = new Button(shlBootloaderUnlockWizard, SWT.NONE);
 		btnNewButton_2.addSelectionListener(new SelectionAdapter() {
@@ -217,13 +217,13 @@ public class BLUWizard extends Dialog {
 			}
 		});
 		btnNewButton_2.setBounds(195, 123, 75, 25);
-		btnNewButton_2.setText("Close");
+		btnNewButton_2.setText("關閉");
 
 	}
 
 	public void showErrorMessageBox(String message) {
 		MessageBox mb = new MessageBox(shlBootloaderUnlockWizard,SWT.ICON_ERROR|SWT.OK);
-		mb.setText("Errorr");
+		mb.setText("錯誤");
 		mb.setMessage(message);
 		int result = mb.open();
 	}

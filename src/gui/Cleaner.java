@@ -79,7 +79,7 @@ public class Cleaner extends Dialog {
 		fd_btnProfile.bottom = new FormAttachment(btnCancel, 0, SWT.BOTTOM);
 		fd_btnProfile.left = new FormAttachment(listInstalled, 0, SWT.LEFT);
 		btnProfile.setLayoutData(fd_btnProfile);
-		btnProfile.setText("Save profile");
+		btnProfile.setText("儲存設定檔");
 		
 		Button btnSaveAsNew = new Button(shlDecruptWizard, SWT.NONE);
 		btnSaveAsNew.addSelectionListener(new SelectionAdapter() {
@@ -100,7 +100,7 @@ public class Cleaner extends Dialog {
 		fd_btnSaveAsNew.left = new FormAttachment(btnProfile, 5);
 		fd_btnSaveAsNew.bottom = new FormAttachment(btnCancel, 0, SWT.BOTTOM);
 		btnSaveAsNew.setLayoutData(fd_btnSaveAsNew);
-		btnSaveAsNew.setText("Save as new profile");
+		btnSaveAsNew.setText("另存為新的設定檔");
 		shlDecruptWizard.open();
 		shlDecruptWizard.layout();
 		Display display = getParent().getDisplay();
@@ -118,7 +118,7 @@ public class Cleaner extends Dialog {
 	private void createContents() {
 		shlDecruptWizard = new Shell(getParent(), getStyle());
 		shlDecruptWizard.setSize(539, 497);
-		shlDecruptWizard.setText("ROM Cleaner");
+		shlDecruptWizard.setText("ROM清理器");
 		shlDecruptWizard.setLayout(new FormLayout());
 		
 		listViewerInstalled = new ListViewer(shlDecruptWizard, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
@@ -162,7 +162,7 @@ public class Cleaner extends Dialog {
 		fd_lblInstalled.top = new FormAttachment(0, 51);
 		fd_lblInstalled.left = new FormAttachment(0, 10);
 		lblInstalled.setLayoutData(fd_lblInstalled);
-		lblInstalled.setText("Installed on device");
+		lblInstalled.setText("已安裝在裝置上");
 		
 		listViewerToRemove = new ListViewer(shlDecruptWizard, SWT.BORDER | SWT.V_SCROLL);
 		listViewerToRemove.setSorter(new ViewerSorter());
@@ -205,7 +205,7 @@ public class Cleaner extends Dialog {
 		fd_lbltoremove.top = new FormAttachment(0, 51);
 		fd_lbltoremove.left = new FormAttachment(0, 282);
 		lbltoremove.setLayoutData(fd_lbltoremove);
-		lbltoremove.setText("To be removed");
+		lbltoremove.setText("將會被移除");
 		
 		btnCancel = new Button(shlDecruptWizard, SWT.NONE);
 		FormData fd_btnCancel = new FormData();
@@ -219,7 +219,7 @@ public class Cleaner extends Dialog {
 				shlDecruptWizard.dispose();
 			}
 		});
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Button btnClean = new Button(shlDecruptWizard, SWT.NONE);
 		FormData fd_btnClean = new FormData();
@@ -233,7 +233,7 @@ public class Cleaner extends Dialog {
 				shlDecruptWizard.dispose();
 			}
 		});
-		btnClean.setText("Clean");
+		btnClean.setText("清理");
 		
 		Composite compositeProfile = new Composite(shlDecruptWizard, SWT.NONE);
 		compositeProfile.setLayout(new GridLayout(2, false));
@@ -248,7 +248,7 @@ public class Cleaner extends Dialog {
 		GridData gd_lblProfile = new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1);
 		gd_lblProfile.widthHint = 92;
 		lblProfile.setLayoutData(gd_lblProfile);
-		lblProfile.setText("Profile :");
+		lblProfile.setText("設定檔:");
 		
 		comboProfile = new Combo(compositeProfile, SWT.READ_ONLY);
 		comboProfile.addSelectionListener(new SelectionAdapter() {
@@ -265,13 +265,13 @@ public class Cleaner extends Dialog {
 			}
 		});
 		comboProfile.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		comboProfile.setText("default");
+		comboProfile.setText("預設值");
 		
 		Iterator<String> itprofiles = apps.getProfiles().iterator();
 		while (itprofiles.hasNext()) {
 			comboProfile.add(itprofiles.next());
 		}
-		comboProfile.select(comboProfile.indexOf("default"));
+		comboProfile.select(comboProfile.indexOf("預設值"));
 
 
 		
@@ -333,14 +333,14 @@ public class Cleaner extends Dialog {
 		fd_lblAvailable.top = new FormAttachment(listInstalled, 6);
 		fd_lblAvailable.left = new FormAttachment(0, 10);
 		lblAvailable.setLayoutData(fd_lblAvailable);
-		lblAvailable.setText("Available for installation :");
+		lblAvailable.setText("可用安裝:");
 		
 		Label lblToInstall = new Label(shlDecruptWizard, SWT.NONE);
 		FormData fd_lblToInstall = new FormData();
 		fd_lblToInstall.top = new FormAttachment(listToRemove, 6);
 		fd_lblToInstall.left = new FormAttachment(listToRemove, 0, SWT.LEFT);
 		lblToInstall.setLayoutData(fd_lblToInstall);
-		lblToInstall.setText("To be installed :");
+		lblToInstall.setText("可用安裝:");
 		
 		listViewerAvailable = new ListViewer(shlDecruptWizard, SWT.BORDER | SWT.V_SCROLL);
 		listViewerAvailable.setSorter(new ViewerSorter());

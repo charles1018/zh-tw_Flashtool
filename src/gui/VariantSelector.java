@@ -41,7 +41,7 @@ public class VariantSelector extends Dialog {
 	 */
 	public VariantSelector(Shell parent, int style) {
 		super(parent, style);
-		setText("Variant Selector");
+		setText("變數選擇");
 	}
 
 	/**

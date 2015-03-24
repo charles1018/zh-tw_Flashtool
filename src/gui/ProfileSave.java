@@ -71,7 +71,7 @@ public class ProfileSave extends Dialog {
 	private void createContents() {
 		shlProfileSave = new Shell(getParent(), getStyle());
 		shlProfileSave.setSize(421, 130);
-		shlProfileSave.setText("Profile Name");
+		shlProfileSave.setText("設定檔名稱");
 		shlProfileSave.setLayout(new FormLayout());
 		
 		Button btnCancel = new Button(shlProfileSave, SWT.NONE);
@@ -85,7 +85,7 @@ public class ProfileSave extends Dialog {
 				shlProfileSave.dispose();
 			}
 		});
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		btnsave = new Button(shlProfileSave, SWT.NONE);
 		btnsave.setEnabled(false);
@@ -109,7 +109,7 @@ public class ProfileSave extends Dialog {
 				}
 			}
 		});
-		btnsave.setText("Save");
+		btnsave.setText("儲存");
 		
 		Composite composite = new Composite(shlProfileSave, SWT.NONE);
 		fd_btnCancel.top = new FormAttachment(0, 68);
@@ -125,7 +125,7 @@ public class ProfileSave extends Dialog {
 		GridData gd_lblName = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_lblName.widthHint = 92;
 		lblName.setLayoutData(gd_lblName);
-		lblName.setText("Profile name :");
+		lblName.setText("設定檔名稱:");
 		txtProfileName = new Text(composite, SWT.BORDER);
 		txtProfileName.addKeyListener(new KeyAdapter() {
 			@Override

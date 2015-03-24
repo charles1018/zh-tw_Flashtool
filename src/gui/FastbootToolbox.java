@@ -52,7 +52,7 @@ public class FastbootToolbox extends Dialog {
 	private void createContents() {
 		shlFastbootToolbox = new Shell(getParent(), getStyle());
 		shlFastbootToolbox.setSize(673, 244);
-		shlFastbootToolbox.setText("Fastboot Toolbox");
+		shlFastbootToolbox.setText("Fastboot工具箱");
 		shlFastbootToolbox.setLayout(new GridLayout(3, false));
 		new Label(shlFastbootToolbox, SWT.NONE);
 		new Label(shlFastbootToolbox, SWT.NONE);
@@ -70,7 +70,7 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnCheckStatus.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		btnCheckStatus.setText("Check Current Device Status");
+		btnCheckStatus.setText("檢查目前裝置狀態");
 		
 		Label lblByDooMLoRD = new Label(shlFastbootToolbox, SWT.NONE);
 		lblByDooMLoRD.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
@@ -84,7 +84,7 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnrRebootFBAdb.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		btnrRebootFBAdb.setText("Reboot into fastboot mode (via ADB)");
+		btnrRebootFBAdb.setText("重啟到fastboot模式(通過ADB)");
 		new Label(shlFastbootToolbox, SWT.NONE);
 		
 		Button btnRebootFBFB = new Button(shlFastbootToolbox, SWT.NONE);
@@ -95,7 +95,7 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnRebootFBFB.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		btnRebootFBFB.setText("Reboot into fastboot mode (via Fastboot)");
+		btnRebootFBFB.setText("重啟到fastboot模式(通過Fastboot)");
 		
 		Button btnHotboot = new Button(shlFastbootToolbox, SWT.NONE);
 		btnHotboot.addSelectionListener(new SelectionAdapter() {
@@ -103,14 +103,14 @@ public class FastbootToolbox extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dlg = new FileDialog(shlFastbootToolbox);
 		        dlg.setFilterExtensions(new String[]{"*.sin","*.elf","*.img"});
-		        dlg.setText("Kernel Chooser");
+		        dlg.setText("選擇核心");
 		        String dir = dlg.open();
 		        if (dir!=null)
 		        	doHotBoot(dir);
 			}
 		});
 		btnHotboot.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		btnHotboot.setText("Select kernel to HotBoot");
+		btnHotboot.setText("選擇核心來暖開機");
 		
 		Button btnFlashSystem = new Button(shlFastbootToolbox, SWT.NONE);
 		btnFlashSystem.addSelectionListener(new SelectionAdapter() {
@@ -118,14 +118,14 @@ public class FastbootToolbox extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dlg = new FileDialog(shlFastbootToolbox);
 		        dlg.setFilterExtensions(new String[]{"*.sin","*.img","*.ext4","*.yaffs2"});
-		        dlg.setText("System Chooser");
+		        dlg.setText("選擇系統");
 		        String dir = dlg.open();
 		        if (dir!=null)
 		        	doFlashSystem(dir);
 			}
 		});
 		btnFlashSystem.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		btnFlashSystem.setText("Select system to Flash");
+		btnFlashSystem.setText("選擇系統來寫入");
 		
 		Button btnFlashKernel = new Button(shlFastbootToolbox, SWT.NONE);
 		btnFlashKernel.addSelectionListener(new SelectionAdapter() {
@@ -133,14 +133,14 @@ public class FastbootToolbox extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				FileDialog dlg = new FileDialog(shlFastbootToolbox);
 		        dlg.setFilterExtensions(new String[]{"*.sin","*.elf","*.img"});
-		        dlg.setText("Kernel Chooser");
+		        dlg.setText("選擇核心");
 		        String dir = dlg.open();
 		        if (dir!=null)
 		        	doFlashKernel(dir);
 			}
 		});
 		btnFlashKernel.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		btnFlashKernel.setText("Select kernel to Flash");
+		btnFlashKernel.setText("選擇核心來寫入");
 		
 		Button btnGetVerInfo = new Button(shlFastbootToolbox, SWT.NONE);
 		btnGetVerInfo.addSelectionListener(new SelectionAdapter() {
@@ -150,7 +150,7 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnGetVerInfo.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		btnGetVerInfo.setText("Get Ver Info");
+		btnGetVerInfo.setText("讀取版本資料");
 		new Label(shlFastbootToolbox, SWT.NONE);
 		
 		Button btnGetDeviceInfo = new Button(shlFastbootToolbox, SWT.NONE);
@@ -161,7 +161,7 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnGetDeviceInfo.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1));
-		btnGetDeviceInfo.setText("Get Device Info");
+		btnGetDeviceInfo.setText("讀取裝置資料");
 		new Label(shlFastbootToolbox, SWT.NONE);
 		
 		Button btnReboot = new Button(shlFastbootToolbox, SWT.NONE);
@@ -172,7 +172,7 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnReboot.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
-		btnReboot.setText("Reboot device into system");
+		btnReboot.setText("重啟裝置進入系統");
 		new Label(shlFastbootToolbox, SWT.NONE);
 		new Label(shlFastbootToolbox, SWT.NONE);
 		new Label(shlFastbootToolbox, SWT.NONE);
@@ -185,62 +185,62 @@ public class FastbootToolbox extends Dialog {
 			}
 		});
 		btnClose.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
-		btnClose.setText("Close");
+		btnClose.setText("關閉");
 
 	}
 
 	public void doRebootFastbootViaAdb() {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Reboot fastboot via ADB");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("重啟到fastboot模式通過ADB");
 		job.setAction("doRebootFastbootViaAdb");
 		job.schedule();
 	}
 	
 	public void doCheckDeviceStatus(){
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Check Device Status");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("檢查裝置狀態");
 		job.setAction("doCheckDeviceStatus");
 		job.schedule();
 	}
 
 	public void doGetConnectedDeviceInfo() {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Get Device Infos");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("讀取裝置資料");
 		job.setAction("doGetConnectedDeviceInfo");
 		job.schedule();
 	}
 
 	public void doGetFastbootVerInfo() {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Get Device Vers Infos");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("讀取裝置版本資料");
 		job.setAction("doGetFastbootVerInfo");
 		job.schedule();
 	}
 	
 	public void doRebootBackIntoFastbootMode() {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Reboot device into fastboot");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("重啟裝置到fastboot模式");
 		job.setAction("doRebootBackIntoFastbootMode");
 		job.schedule();
 	}
 
 	public void doFastbootReboot() {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Reboot device");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("重啟裝置");
 		job.setAction("doFastbootReboot");
 		job.schedule();
 	}
 
 	public void doHotBoot(String kernel) {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Hotboot device");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("熱開機裝置");
 		job.setAction("doHotbootKernel");
 		job.setImage(kernel);
 		job.schedule();
 	}
 
 	public void doFlashKernel(String kernel) {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Flash kernel to device");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("寫入核心到裝置");
 		job.setAction("doFlashKernel");
 		job.setImage(kernel);
 		job.schedule();
 	}
 
 	public void doFlashSystem(String system) {
-		FastBootToolBoxJob job = new FastBootToolBoxJob("Flash system to device");
+		FastBootToolBoxJob job = new FastBootToolBoxJob("寫入系統到裝置");
 		job.setAction("doFlashSystem");
 		job.setImage(system);
 		job.schedule();

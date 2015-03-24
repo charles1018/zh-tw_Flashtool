@@ -32,7 +32,7 @@ public class About extends Dialog {
 	 */
 	public About(Shell parent, int style) {
 		super(parent, style);
-		setText("About");
+		setText("關於");
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class About extends Dialog {
 		FormData fd_lblNewLabel = new FormData();
 		fd_lblNewLabel.left = new FormAttachment(0, 10);
 		lblNewLabel.setLayoutData(fd_lblNewLabel);
-		lblNewLabel.setText("Xperia flashing tool "+OS.getChannel());
+		lblNewLabel.setText("Xperia 刷機工具 "+OS.getChannel());
 		
 		Label lblNewLabel_1 = new Label(shlAbout, SWT.NONE);
 		lblNewLabel_1.setAlignment(SWT.CENTER);
@@ -57,7 +57,7 @@ public class About extends Dialog {
 		fd_lblNewLabel_1.right = new FormAttachment(lblNewLabel, 0, SWT.RIGHT);
 		fd_lblNewLabel_1.left = new FormAttachment(lblNewLabel, 0, SWT.LEFT);
 		lblNewLabel_1.setLayoutData(fd_lblNewLabel_1);
-		lblNewLabel_1.setText("Java Version " + System.getProperty("java.version") + " " + System.getProperty("sun.arch.data.model") + "bits Edition");
+		lblNewLabel_1.setText("Java 版本 " + System.getProperty("java.version") + " " + System.getProperty("sun.arch.data.model") + "位元");
 		
 		Label lblNewLabel_2 = new Label(shlAbout, SWT.NONE);
 		fd_lblNewLabel.bottom = new FormAttachment(100, -192);
@@ -76,7 +76,7 @@ public class About extends Dialog {
 		fd_lblNewLabel_3.right = new FormAttachment(lblNewLabel, 0, SWT.RIGHT);
 		fd_lblNewLabel_3.left = new FormAttachment(lblNewLabel, 0, SWT.LEFT);
 		lblNewLabel_3.setLayoutData(fd_lblNewLabel_3);
-		lblNewLabel_3.setText("OS Version "+OS.getVersion());
+		lblNewLabel_3.setText("OS 版本 "+OS.getVersion());
 		
 		Label lblNewLabel_4 = new Label(shlAbout, SWT.NONE);
 		fd_lblNewLabel_3.bottom = new FormAttachment(100, -129);
@@ -85,7 +85,7 @@ public class About extends Dialog {
 		fd_lblNewLabel_4.right = new FormAttachment(lblNewLabel, 0, SWT.RIGHT);
 		fd_lblNewLabel_4.left = new FormAttachment(lblNewLabel, 0, SWT.LEFT);
 		lblNewLabel_4.setLayoutData(fd_lblNewLabel_4);
-		lblNewLabel_4.setText("By Androxyde");
+		lblNewLabel_4.setText("By Androxyde 正體中文化 sharonliu");
 		
 		Button btnNewButton = new Button(shlAbout, SWT.NONE);
 		fd_lblNewLabel.right = new FormAttachment(btnNewButton, 0, SWT.RIGHT);
@@ -99,7 +99,7 @@ public class About extends Dialog {
 		fd_btnNewButton.bottom = new FormAttachment(100, -10);
 		fd_btnNewButton.right = new FormAttachment(100, -10);
 		btnNewButton.setLayoutData(fd_btnNewButton);
-		btnNewButton.setText("Close");
+		btnNewButton.setText("關閉");
 		
 		Link link = new Link(shlAbout, SWT.NONE);
 		fd_lblNewLabel_4.bottom = new FormAttachment(100, -108);
@@ -122,7 +122,7 @@ public class About extends Dialog {
 		fd_lblManyThanksTo.right = new FormAttachment(lblNewLabel, 0, SWT.RIGHT);
 		fd_lblManyThanksTo.left = new FormAttachment(0, 10);
 		lblManyThanksTo.setLayoutData(fd_lblManyThanksTo);
-		lblManyThanksTo.setText("Many thanks to contributors : Bin4ry, DooMLoRD, [NUT],");
+		lblManyThanksTo.setText("特別感謝以下貢獻者 : Bin4ry, DooMLoRD, [NUT],");
 		
 		Label lblDevshaft = new Label(shlAbout, SWT.NONE);
 		lblDevshaft.setAlignment(SWT.CENTER);
@@ -150,12 +150,12 @@ public class About extends Dialog {
 	private void createContents() {
 		shlAbout = new Shell(getParent(), getStyle());
 		shlAbout.setSize(450, 246);
-		shlAbout.setText("About");
+		shlAbout.setText("關於");
 
 	}
 
 	public static String getVersion() {
-		if (build == null) return " run from eclipse";
+		if (build == null) return "版本 0.9.18.5 編譯時間 2015-02-16";
 		return build;
 	}
 }

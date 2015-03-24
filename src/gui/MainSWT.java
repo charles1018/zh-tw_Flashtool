@@ -114,11 +114,11 @@ public class MainSWT {
 		shlSonyericsson.layout();
 		try {
 			while (new File(OS.getWorkDir()+File.separator+"firmwares").list().length>0)
-				WidgetTask.openOKBox(shlSonyericsson, "Please move "+OS.getWorkDir()+File.separator+"firmwares content to "+OS.getFolderFirmwares());
+				WidgetTask.openOKBox(shlSonyericsson, "請移動 " + OS.getWorkDir() + File.separator + "firmwares 整個資料夾到 "+OS.getFolderFirmwares());
 		} catch (NullPointerException npe) {}
 		try {
 			while (new File(OS.getWorkDir()+File.separator+"custom"+File.separator+"mydevices").list().length>0)
-				WidgetTask.openOKBox(shlSonyericsson, "Please move "+OS.getWorkDir()+File.separator+"custom"+File.separator+"mydevices content to "+OS.getFolderMyDevices());
+				WidgetTask.openOKBox(shlSonyericsson, "請移動 " + OS.getWorkDir() + File.separator + "custom" + File.separator + "mydevices 整個資料夾到 "+OS.getFolderMyDevices());
 		} catch (NullPointerException npe) {}
 		if (GlobalConfig.getProperty("gitauto").equals("true")) {
 			WaitForDevicesSync sync = new WaitForDevicesSync(shlSonyericsson,SWT.PRIMARY_MODAL | SWT.SHEET);
@@ -128,30 +128,30 @@ public class MainSWT {
 		StatusListener phoneStatus = new StatusListener() {
 			public void statusChanged(StatusEvent e) {
 				if (!e.isDriverOk()) {
-					logger.error("Drivers need to be installed for connected device.");
-					logger.error("You can find them in the drivers folder of Flashtool.");
+					logger.error("你需要先安裝驅動程式才能連接裝置");
+					logger.error("在Flashtool的drivers資料夾內可找到驅動程式安裝檔案");
 				}
 				else {
 					if (e.getNew().equals("adb")) {
-						logger.info("Device connected with USB debugging on");
-						logger.debug("Device connected, continuing with identification");
+						logger.info("裝置通過USB偵錯模式連接");
+						logger.debug("裝置已連接,正在檢查裝置");
 						doIdent();
 					}
 					if (e.getNew().equals("none")) {
-						logger.info("Device disconnected");
+						logger.info("裝置未連接");
 						doDisableIdent();
 					}
 					if (e.getNew().equals("flash")) {
-						logger.info("Device connected in flash mode");
+						logger.info("裝置已連接為強刷模式");
 						doDisableIdent();
 					}
 					if (e.getNew().equals("fastboot")) {
-						logger.info("Device connected in fastboot mode");
+						logger.info("裝置已連接為fastboot模式");
 						doDisableIdent();
 					}
 					if (e.getNew().equals("normal")) {
-						logger.info("Device connected with USB debugging off");
-						logger.info("For 2011 devices line, be sure you are not in MTP mode");
+						logger.info("裝置已連接,但未打開usb偵錯");
+						logger.info("對於2011年的裝置,請確認不是在MTP模式下進行連接");
 						doDisableIdent();
 					}
 				}
@@ -173,7 +173,7 @@ public class MainSWT {
 		WidgetTask.setEnabled(tltmRoot,false);
 		WidgetTask.setEnabled(tltmAskRoot,false);
 		WidgetTask.setEnabled(tltmApkInstall,false);
-		WidgetTask.setMenuName(mntmNoDevice, "No Device");
+		WidgetTask.setMenuName(mntmNoDevice, "無裝置");
 		WidgetTask.setEnabled(mntmNoDevice,false);
 		WidgetTask.setEnabled(mntmRawRestore,false);
 		WidgetTask.setEnabled(mntmRawBackup,false);
@@ -203,7 +203,7 @@ public class MainSWT {
 		shlSonyericsson.setMenuBar(menu);
 		
 		MenuItem mntmFile = new MenuItem(menu, SWT.CASCADE);
-		mntmFile.setText("File");
+		mntmFile.setText("檔案");
 		
 		Menu menu_1 = new Menu(mntmFile);
 		mntmFile.setMenu(menu_1);
@@ -227,13 +227,13 @@ public class MainSWT {
 	    				WidgetTask.setEnabled(mntmRawBackup,false);	    				
 	    			}
     			}
-    			mntmSwitchPro.setText(ispro?"Switch Simple":"Switch Pro");
+    			mntmSwitchPro.setText(ispro?"切換到普通模式":"切換到進階模式");
     			//mnDev.setVisible(!ispro);
     			//mntmSwitchPro.setText(Language.getMessage(mntmSwitchPro.getName()));
     		    //mnDev.setText(Language.getMessage(mnDev.getName()));
 			}
 		});
-		mntmSwitchPro.setText(GlobalConfig.getProperty("devfeatures").equals("yes")?"Switch Simple":"Switch Pro");
+		mntmSwitchPro.setText(GlobalConfig.getProperty("devfeatures").equals("yes")?"切換到普通模式":"切換到進階模式");
 		
 		MenuItem mntmExit = new MenuItem(menu_1, SWT.NONE);
 		mntmExit.addSelectionListener(new SelectionAdapter() {
@@ -243,10 +243,10 @@ public class MainSWT {
 				shlSonyericsson.dispose();
 			}
 		});
-		mntmExit.setText("Exit");
+		mntmExit.setText("離開");
 		
 		mntmNoDevice = new MenuItem(menu, SWT.CASCADE);
-		mntmNoDevice.setText("No Device");
+		mntmNoDevice.setText("無裝置");
 		mntmNoDevice.setEnabled(false);
 		Menu menu_device = new Menu(mntmNoDevice);
 		mntmNoDevice.setMenu(menu_device);
@@ -324,11 +324,11 @@ public class MainSWT {
 		mntmBackupSystemApps.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				BackupSystemJob bsj = new BackupSystemJob("Backup System apps");
+				BackupSystemJob bsj = new BackupSystemJob("備份系統程式");
 				bsj.schedule();
 			}
 		});
-		mntmBackupSystemApps.setText("Backup system apps");
+		mntmBackupSystemApps.setText("備份系統程式");
 		
 		mntmInstallBusybox = new MenuItem(menu_device, SWT.NONE);
 		mntmInstallBusybox.addSelectionListener(new SelectionAdapter() {
@@ -342,21 +342,21 @@ public class MainSWT {
         		}
 			}
 		});
-		mntmInstallBusybox.setText("Install busybox");
+		mntmInstallBusybox.setText("安裝busybox");
 		
 		MenuItem mntmLaunchServicemenu = new MenuItem(menu_device, SWT.NONE);
 		mntmLaunchServicemenu.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				try {
-					logger.info("Launching Service Menu. Plese check on your phone.");
+					logger.info("正在啟動服務功能表,請檢查你的手機");
 					AdbUtility.run("am start -a android.intent.action.MAIN -n com.sonyericsson.android.servicemenu/.ServiceMainMenu");
 				}
 				catch (Exception ex) {
 				}
 			}
 		});
-		mntmLaunchServicemenu.setText("Launch ServiceMenu");
+		mntmLaunchServicemenu.setText("進入服務功能表");
 		
 		MenuItem mntmReboot = new MenuItem(menu_device, SWT.NONE);
 		mntmReboot.addSelectionListener(new SelectionAdapter() {
@@ -369,10 +369,10 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmReboot.setText("Reboot");
+		mntmReboot.setText("重新啟動");
 		
 		MenuItem mntmNewSubmenu = new MenuItem(menu, SWT.CASCADE);
-		mntmNewSubmenu.setText("Tools");
+		mntmNewSubmenu.setText("工具");
 		
 		Menu menu_4 = new Menu(mntmNewSubmenu);
 		mntmNewSubmenu.setMenu(menu_4);
@@ -385,10 +385,10 @@ public class MainSWT {
 				sedit.open();
 			}
 		});
-		mntmNewItem.setText("Sin Editor");
+		mntmNewItem.setText("Sin編輯器");
 		
 		MenuItem mntmExtractors = new MenuItem(menu_4, SWT.CASCADE);
-		mntmExtractors.setText("Extractors");
+		mntmExtractors.setText("解壓轉換器");
 		
 		Menu menu_5 = new Menu(mntmExtractors);
 		mntmExtractors.setMenu(menu_5);
@@ -413,7 +413,7 @@ public class MainSWT {
 		mntmElf.setText("Elf");
 		
 		MenuItem mntmBundles = new MenuItem(menu_4, SWT.CASCADE);
-		mntmBundles.setText("Bundles");
+		mntmBundles.setText("韌體解壓轉換/建立");
 		
 		Menu menu_12 = new Menu(mntmBundles);
 		mntmBundles.setMenu(menu_12);
@@ -427,7 +427,7 @@ public class MainSWT {
 				if (result!=null) {
 					File f = (File)result.get(0);
 					final String folder = f.getParent();
-					DecryptJob dec = new DecryptJob("Decrypt");
+					DecryptJob dec = new DecryptJob("解壓轉換韌體");
 					dec.addJobChangeListener(new IJobChangeListener() {
 						public void aboutToRun(IJobChangeEvent event) {
 						}
@@ -437,8 +437,8 @@ public class MainSWT {
 
 						public void done(IJobChangeEvent event) {
 							String result = WidgetTask.openBundleCreator(shlSonyericsson,folder+File.separator+"decrypted");
-							if (result.equals("Cancel"))
-								logger.info("Bundle creation canceled");
+							if (result.equals("取消"))
+								logger.info("已取消建立韌體");
 						}
 
 						public void running(IJobChangeEvent event) {
@@ -455,11 +455,11 @@ public class MainSWT {
 					dec.schedule();
 				}
 				else {
-					logger.info("Decrypt canceled");
+					logger.info("已取消解壓轉換");
 				}
 			}
 		});
-		mntmNewItem_1.setText("FILESET Decrypt");
+		mntmNewItem_1.setText("檔案解壓轉換");
 		
 		MenuItem mntmBundleCreation = new MenuItem(menu_12, SWT.NONE);
 		mntmBundleCreation.addSelectionListener(new SelectionAdapter() {
@@ -467,11 +467,11 @@ public class MainSWT {
 			public void widgetSelected(SelectionEvent e) {
 				BundleCreator cre = new BundleCreator(shlSonyericsson,SWT.PRIMARY_MODAL | SWT.SHEET);
 				String result = (String)cre.open();
-				if (result.equals("Cancel"))
-					logger.info("Bundle creation canceled");
+				if (result.equals("取消"))
+					logger.info("已取消建立韌體");
 			}
 		});
-		mntmBundleCreation.setText("Create");
+		mntmBundleCreation.setText("建立韌體");
 		
 		/*MenuItem mntmBundleCreationFrom = new MenuItem(menu_12, SWT.NONE);
 		mntmBundleCreationFrom.addSelectionListener(new SelectionAdapter() {
@@ -486,7 +486,7 @@ public class MainSWT {
 		mntmBundleCreationFrom.setText("Create From Sony DB");*/
 		
 		mntmAdvanced = new MenuItem(menu, SWT.CASCADE);
-		mntmAdvanced.setText("Advanced");
+		mntmAdvanced.setText("進階");
 		
 		
 		Menu AdvancedMenu = new Menu(mntmAdvanced);
@@ -494,7 +494,7 @@ public class MainSWT {
 		mntmAdvanced.setMenu(AdvancedMenu);
 		
 		MenuItem mntmTrimArea = new MenuItem(AdvancedMenu, SWT.CASCADE);
-		mntmTrimArea.setText("Trim Area");
+		mntmTrimArea.setText("TA管理");
 		
 		Menu menu_9 = new Menu(mntmTrimArea);
 		mntmTrimArea.setMenu(menu_9);
@@ -518,7 +518,7 @@ public class MainSWT {
 				rj.schedule();
 			}
 		});
-		mntmRawBackup.setText("Backup");
+		mntmRawBackup.setText("備份");
 		mntmRawBackup.setEnabled(false);
 		
 		mntmRawRestore = new MenuItem(menu_9, SWT.NONE);
@@ -531,16 +531,16 @@ public class MainSWT {
 				rj.schedule();
 			}
 		});
-		mntmRawRestore.setText("Restore");
+		mntmRawRestore.setText("還原");
 		mntmRawRestore.setEnabled(false);
 		MenuItem mntmDevices = new MenuItem(menu, SWT.CASCADE);
-		mntmDevices.setText("Devices");
+		mntmDevices.setText("裝置");
 		
 		Menu menu_6 = new Menu(mntmDevices);
 		mntmDevices.setMenu(menu_6);
 		
 		MenuItem mntmNewSubmenu_1 = new MenuItem(menu_6, SWT.CASCADE);
-		mntmNewSubmenu_1.setText("Devices Sync");
+		mntmNewSubmenu_1.setText("同步裝置");
 		
 		Menu menu_8 = new Menu(mntmNewSubmenu_1);
 		mntmNewSubmenu_1.setMenu(menu_8);
@@ -553,10 +553,10 @@ public class MainSWT {
 				sync.open();
 			}
 		});
-		mntmSyncFromGit.setText("Manual Sync");
+		mntmSyncFromGit.setText("手動同步");
 		
 		MenuItem mntmAutoSync = new MenuItem(menu_8, SWT.CASCADE);
-		mntmAutoSync.setText("Auto Sync");
+		mntmAutoSync.setText("自動同步");
 		
 		Menu menu_11 = new Menu(mntmAutoSync);
 		mntmAutoSync.setMenu(menu_11);
@@ -568,7 +568,7 @@ public class MainSWT {
 				GlobalConfig.setProperty("gitauto", "true");
 			}
 		});
-		mntmOn.setText("On");
+		mntmOn.setText("開啟");
 		mntmOn.setSelection((GlobalConfig.getProperty("gitauto").equals("true")));
 		
 		MenuItem mntmOff = new MenuItem(menu_11, SWT.RADIO);
@@ -578,7 +578,7 @@ public class MainSWT {
 				GlobalConfig.setProperty("gitauto", "false");
 			}
 		});
-		mntmOff.setText("Off");
+		mntmOff.setText("關閉");
 		mntmOff.setSelection((GlobalConfig.getProperty("gitauto").equals("false")));
 		
 		MenuItem mntmCheckDrivers = new MenuItem(menu_6, SWT.NONE);
@@ -588,7 +588,7 @@ public class MainSWT {
 				Devices.CheckAdbDrivers();
 			}
 		});
-		mntmCheckDrivers.setText("Check Drivers");
+		mntmCheckDrivers.setText("檢查驅動");
 		
 		MenuItem mntmCheck = new MenuItem(menu_6, SWT.NONE);
 		mntmCheck.addSelectionListener(new SelectionAdapter() {
@@ -609,10 +609,10 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmCheck.setText("Check Updates");
+		mntmCheck.setText("檢查更新");
 		
 		MenuItem mntmEditor = new MenuItem(menu_6, SWT.CASCADE);
-		mntmEditor.setText("Manage");
+		mntmEditor.setText("管理");
 		
 		Menu menu_7 = new Menu(mntmEditor);
 		mntmEditor.setMenu(menu_7);
@@ -666,7 +666,7 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmCdfidManager.setText("cdfID Editor");
+		mntmCdfidManager.setText("cdfID編輯器");
 		
 		//MenuItem mntmEdit = new MenuItem(menu_7, SWT.NONE);
 		//mntmEdit.setText("Edit");
@@ -686,9 +686,9 @@ public class MainSWT {
 				DeviceEntry ent = Devices.getDevice(devid);
         		if (devid.length()>0) {
         			try {
-        				logger.info("Beginning export of "+ent.getName());
+        				logger.info("正在匯出"+ent.getName());
         				doExportDevice(devid);
-        				logger.info(ent.getName()+" exported successfully");
+        				logger.info(ent.getName()+"匯出成功");
         			}
         			catch (Exception ex) {
         				logger.error(ex.getMessage());
@@ -696,7 +696,7 @@ public class MainSWT {
         		}
 			}
 		});
-		mntmExport.setText("Export");
+		mntmExport.setText("匯出");
 		
 		MenuItem mntmImport = new MenuItem(menu_7, SWT.NONE);
 		mntmImport.addSelectionListener(new SelectionAdapter() {
@@ -730,24 +730,24 @@ public class MainSWT {
 						}
 	        		}
 	        		else {
-	        			logger.info("Import canceled");
+	        			logger.info("已取消匯入");
 	        		}
         		}
         		else {
-        			MsgBox.error("No device to import");
+        			MsgBox.error("無裝置可匯入");
         		}
 			}
 		});
-		mntmImport.setText("Import");
+		mntmImport.setText("匯入");
 		
 		MenuItem mntmHelp = new MenuItem(menu, SWT.CASCADE);
-		mntmHelp.setText("Help");
+		mntmHelp.setText("說明");
 		
 		Menu menu_2 = new Menu(mntmHelp);
 		mntmHelp.setMenu(menu_2);
 		
 		MenuItem mntmLogLevel = new MenuItem(menu_2, SWT.CASCADE);
-		mntmLogLevel.setText("Log level");
+		mntmLogLevel.setText("Log等級");
 		
 		Menu menu_3 = new Menu(mntmLogLevel);
 		mntmLogLevel.setMenu(menu_3);
@@ -762,7 +762,7 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmError.setText("error");
+		mntmError.setText("錯誤");
 		
 		MenuItem mntmWarning = new MenuItem(menu_3, SWT.RADIO);
 		mntmWarning.addSelectionListener(new SelectionAdapter() {
@@ -774,7 +774,7 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmWarning.setText("warning");
+		mntmWarning.setText("警告");
 		
 		MenuItem mntmInfo = new MenuItem(menu_3, SWT.RADIO);
 		mntmInfo.addSelectionListener(new SelectionAdapter() {
@@ -786,7 +786,7 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmInfo.setText("info");
+		mntmInfo.setText("資訊");
 		
 		MenuItem mntmDebug = new MenuItem(menu_3, SWT.RADIO);
 		mntmDebug.addSelectionListener(new SelectionAdapter() {
@@ -798,7 +798,7 @@ public class MainSWT {
 				}
 			}
 		});
-		mntmDebug.setText("debug");
+		mntmDebug.setText("偵錯");
 		
 		MenuItem mntmAbout = new MenuItem(menu_2, SWT.NONE);
 		mntmAbout.addSelectionListener(new SelectionAdapter() {
@@ -808,7 +808,7 @@ public class MainSWT {
 				about.open();
 			}
 		});
-		mntmAbout.setText("About");
+		mntmAbout.setText("關於");
 
 		if (GlobalConfig.getProperty("loglevel").equals("debug"))
 			mntmDebug.setSelection(true);
@@ -836,7 +836,7 @@ public class MainSWT {
 			}
 		});
 		tltmFlash.setImage(SWTResourceManager.getImage(MainSWT.class, "/gui/ressources/icons/flash_32.png"));
-		tltmFlash.setToolTipText("Flash device");
+		tltmFlash.setToolTipText("寫入裝置");
 		
 		tltmBLU = new ToolItem(toolBar, SWT.NONE);
 		tltmBLU.addSelectionListener(new SelectionAdapter() {
@@ -845,7 +845,7 @@ public class MainSWT {
 				doBLUnlock();
 			}
 		});
-		tltmBLU.setToolTipText("Bootloader Unlock");
+		tltmBLU.setToolTipText("Bootloader解鎖");
 		tltmBLU.setImage(SWTResourceManager.getImage(MainSWT.class, "/gui/ressources/icons/blu_32.png"));
 		
 		tltmRoot = new ToolItem(toolBar, SWT.NONE);
@@ -857,7 +857,7 @@ public class MainSWT {
 		});
 		tltmRoot.setImage(SWTResourceManager.getImage(MainSWT.class, "/gui/ressources/icons/root_32.png"));
 		tltmRoot.setEnabled(false);
-		tltmRoot.setToolTipText("Root device");
+		tltmRoot.setToolTipText("Root裝置");
 		
 		Button btnSaveLog = new Button(shlSonyericsson, SWT.NONE);
 		btnSaveLog.addSelectionListener(new SelectionAdapter() {
@@ -870,7 +870,7 @@ public class MainSWT {
 		fd_btnSaveLog.right = new FormAttachment(100, -10);
 		fd_btnSaveLog.left = new FormAttachment(100, -95);
 		btnSaveLog.setLayoutData(fd_btnSaveLog);
-		btnSaveLog.setText("Save log");
+		btnSaveLog.setText("儲存log");
 		
 		tltmAskRoot = new ToolItem(toolBar, SWT.NONE);
 		tltmAskRoot.addSelectionListener(new SelectionAdapter() {
@@ -881,7 +881,7 @@ public class MainSWT {
 		});
 		tltmAskRoot.setImage(SWTResourceManager.getImage(MainSWT.class, "/gui/ressources/icons/askroot_32.png"));
 		tltmAskRoot.setEnabled(false);
-		tltmAskRoot.setToolTipText("Ask for root permissions");
+		tltmAskRoot.setToolTipText("獲取root權限");
 		
 		tltmApkInstall = new ToolItem(toolBar, SWT.NONE);
 		tltmApkInstall.addSelectionListener(new SelectionAdapter() {
@@ -890,12 +890,12 @@ public class MainSWT {
 				ApkInstaller inst = new ApkInstaller(shlSonyericsson,SWT.PRIMARY_MODAL | SWT.SHEET);
 				String folder = inst.open();
 				if (folder.length()>0) {
-					APKInstallJob aij = new APKInstallJob("APK Install");
+					APKInstallJob aij = new APKInstallJob("安裝APK");
 					aij.setFolder(folder);
 					aij.schedule();
 				}
 				else {
-					logger.info("Install APK canceled");
+					logger.info("已取消安裝APK");
 				}
 			}
 		});
@@ -909,16 +909,16 @@ public class MainSWT {
 				Cleaner clean = new Cleaner(shlSonyericsson,SWT.PRIMARY_MODAL | SWT.SHEET);
 				DeviceApps result = clean.open();
 				if (result != null) {
-					CleanJob cj = new CleanJob("Clean Job");
+					CleanJob cj = new CleanJob("清理");
 					cj.setDeviceApps(result);
 					cj.schedule();
 				}
 				else
-					logger.info("Cleaning canceled");
+					logger.info("已取消清理");
 				//WidgetTask.openOKBox(shlSonyericsson, "To be implemented");
 			}
 		});
-		tltmClean.setToolTipText("Clean ROM");
+		tltmClean.setToolTipText("清理ROM");
 		tltmClean.setImage(SWTResourceManager.getImage(MainSWT.class, "/gui/ressources/icons/clean_32.png"));
 		tltmClean.setEnabled(false);
 		
@@ -929,7 +929,7 @@ public class MainSWT {
 				WidgetTask.openOKBox(shlSonyericsson, "To be implemented");
 			}
 		});
-		tltmRecovery.setToolTipText("Install Recovery");
+		tltmRecovery.setToolTipText("安裝Recovery");
 		tltmRecovery.setImage(SWTResourceManager.getImage(MainSWT.class, "/gui/ressources/icons/recovery_32.png"));
 		tltmRecovery.setEnabled(false);
 		
@@ -984,7 +984,7 @@ public class MainSWT {
 		if (JUsb.getVersion().length()>0)
 			logger.info(JUsb.getVersion());
 		Proxy.setProxy();
-		vcheck = new VersionCheckerJob("Version Checker Job");
+		vcheck = new VersionCheckerJob("檢查版本");
 		vcheck.setMessageFrame(shlSonyericsson);
 		vcheck.schedule();
 	}
@@ -1009,7 +1009,7 @@ public class MainSWT {
 	public void exitProgram() {
 		try {
 			MyLogger.setLogDest("console");
-			logger.info("Stopping watchdogs and exiting ...");
+			logger.info("停止watchdogs並退出中 ...");
 			if (GlobalConfig.getProperty("killadbonexit").equals("yes")) {
 				killAdbandFastboot();
 			}
@@ -1023,8 +1023,8 @@ public class MainSWT {
     		String devid = Devices.identFromRecognition();
     		if (devid.length()==0) {
     			if (Devices.listDevices(false).hasMoreElements()) {
-    				logger.error("Cannot identify your device.");
-	        		logger.info("Selecting from user input");
+    				logger.error("無法識別你的裝置");
+	        		logger.info("正在從使用者輸入中選擇");
 	        		devid=(String)WidgetTask.openDeviceSelector(shlSonyericsson);
 	    			if (devid.length()>0) {
 	        			Devices.setCurrent(devid);
@@ -1035,28 +1035,28 @@ public class MainSWT {
 	        					Devices.getCurrent().addRecognitionToList(prop);
 	        			}
 	            		if (!Devices.isWaitingForReboot())
-	            			logger.info("Connected device : " + Devices.getCurrent().getId());
+	            			logger.info("連接中的裝置: " + Devices.getCurrent().getId());
 	        		}
 	        		else {
-	        			logger.error("You can only flash devices.");
+	        			logger.error("你只能強刷此裝置");
 	        		}
     			}
     		}
     		else {
 	    		Devices.setCurrent(devid);
 				if (!Devices.isWaitingForReboot())
-					logger.info("Connected device : " + Devices.getCurrent().getName());
+					logger.info("連接中的裝置: " + Devices.getCurrent().getName());
     		}
     		if (devid.length()>0) {
     			WidgetTask.setEnabled(mntmNoDevice, true);
-    			WidgetTask.setMenuName(mntmNoDevice, "My "+Devices.getCurrent().getId());
+    			WidgetTask.setMenuName(mntmNoDevice, "使用中的裝置"+Devices.getCurrent().getId());
     			WidgetTask.setEnabled(mntmInstallBusybox,false);
     			if (!Devices.isWaitingForReboot()) {
-    				logger.info("Installed version of busybox : " + Devices.getCurrent().getInstalledBusyboxVersion(false));
-    				logger.info("Android version : "+Devices.getCurrent().getVersion()+" / kernel version : "+Devices.getCurrent().getKernelVersion()+" / Build number : "+Devices.getCurrent().getBuildId());
+    				logger.info("已安裝的 busybox版本: " + Devices.getCurrent().getInstalledBusyboxVersion(false));
+    				logger.info("Android版本: "+Devices.getCurrent().getVersion()+" / 核心版本: "+Devices.getCurrent().getKernelVersion()+" / 軟體版本: "+Devices.getCurrent().getBuildId());
     			}
     			if (Devices.getCurrent().isRecovery()) {
-    				logger.info("Phone in recovery mode");
+    				logger.info("裝置在recovery模式");
     				WidgetTask.setEnabled(tltmRoot,false);
     				WidgetTask.setEnabled(tltmAskRoot,false);
     				WidgetTask.setEnabled(tltmApkInstall,false);
@@ -1067,7 +1067,7 @@ public class MainSWT {
     				WidgetTask.setEnabled(tltmRoot, !hasSU);
     				WidgetTask.setEnabled(tltmApkInstall, true);
     				if (hasSU) {
-        				logger.info("Checking root access");
+        				logger.info("檢查root權限");
     					boolean hasRoot = Devices.getCurrent().hasRoot();
 						doGiveRoot(hasRoot);
     					if (hasRoot) {
@@ -1092,14 +1092,14 @@ public class MainSWT {
     			WidgetTask.setEnabled(tltmFlash,flash);
     			//logger.debug("custBtn button");
     			//custBtn.setEnabled(true);
-    			logger.debug("Now adding plugins");
+    			logger.debug("正在連接裝置");
     			//mnPlugins.removeAll();
     			//addDevicesPlugins();
     			//addGenericPlugins();
-    			logger.debug("Stop waiting for device");
+    			logger.debug("停止等待裝置");
     			if (Devices.isWaitingForReboot())
     				Devices.stopWaitForReboot();
-    			logger.debug("End of identification");
+    			logger.debug("結束識別");
     		}
     	}
 	}
@@ -1133,17 +1133,17 @@ public class MainSWT {
 		WidgetTask.setEnabled(tltmAskRoot,!hasRoot);
 		if (!Devices.isWaitingForReboot())
 			if (hasRoot) {
-				logger.info("Root Access Allowed");
+				logger.info("允許獲取Root權限");
 				AdbUtility.antiRic();
 			}
 			else
-				logger.info("Root access denied");
+				logger.info("拒絕獲取Root權限");
     }
 
 	public void doAskRoot() {
-		Job job = new Job("Give Root") {
+		Job job = new Job("允許root權限") {
 			protected IStatus run(IProgressMonitor monitor) {
-				logger.warn("Please check your Phone and 'ALLOW' Superuseraccess!");
+				logger.warn("請檢查你的裝置並點選'ALLOW'來取得 Superuser權限!");
         		boolean hasRoot = Devices.getCurrent().hasRoot();
         		doGiveRoot(hasRoot);
         		return Status.OK_STATUS;				
@@ -1156,7 +1156,7 @@ public class MainSWT {
 		try {
 			if (!AdbUtility.exists("/system/flashtool")) {
 				Devices.getCurrent().doBusyboxHelper();
-				logger.info("Installing toolbox to device...");
+				logger.info("正在安裝toolbox到裝置中...");
 				AdbUtility.push(OS.getFolderCustom()+File.separator+"root"+File.separator+"ftkit.tar",GlobalConfig.getProperty("deviceworkdir"));
 				FTShell ftshell = new FTShell("installftkit");
 				ftshell.runRoot();
@@ -1175,7 +1175,7 @@ public class MainSWT {
 		else if (select.equals("fastboot"))
 			doFastBoot();
 		else
-			logger.info("Flash canceled");
+			logger.info("已取消寫入");
 	}
 	
 	public void doFastBoot() throws Exception {
@@ -1187,25 +1187,25 @@ public class MainSWT {
 		try {
 			FTFSelector ftfsel = new FTFSelector(shlSonyericsson,SWT.PRIMARY_MODAL | SWT.SHEET);
 			final Bundle bundle = (Bundle)ftfsel.open(pftfpath, pftfname);
-			logger.info("Selected "+bundle);
+			logger.info("已選擇"+bundle);
 			if (bundle !=null) {
 				bundle.setSimulate(GlobalConfig.getProperty("simulate").toLowerCase().equals("yes"));
 				final X10flash flash = new X10flash(bundle,shlSonyericsson);
 				try {
-						FlashJob fjob = new FlashJob("Flash");
+						FlashJob fjob = new FlashJob("寫入");
 						fjob.setFlash(flash);
 						fjob.setShell(shlSonyericsson);
 						fjob.schedule();
 				}
 				catch (Exception e){
 					logger.error(e.getMessage());
-					logger.info("Flash canceled");
+					logger.info("已取消寫入");
 					if (flash.getBundle()!=null)
 						flash.getBundle().close();
 				}
 			}
 			else
-				logger.info("Flash canceled");
+				logger.info("已取消寫入");
 
 		}
 		catch (Exception e) {
@@ -1253,11 +1253,11 @@ public class MainSWT {
 	public void doBLUnlock() {
 		try {
 			final X10flash flash = new X10flash(new Bundle(),shlSonyericsson);
-			logger.info("Please connect your device into flashmode.");
+			logger.info("請連接你的裝置到強刷模式");
 			String result = (String)WidgetTask.openWaitDeviceForFlashmode(shlSonyericsson,flash);
 			if (result.equals("OK")) {
 				try {
-					GetULCodeJob ulj = new GetULCodeJob("Unlock code");
+					GetULCodeJob ulj = new GetULCodeJob("解鎖碼");
 					ulj.setFlash(flash);
 					ulj.addJobChangeListener(new IJobChangeListener() {
 						public void aboutToRun(IJobChangeEvent event) {}
@@ -1269,7 +1269,7 @@ public class MainSWT {
 						public void done(IJobChangeEvent event) {
 							GetULCodeJob j = (GetULCodeJob)event.getJob();
 							if (j.getPhoneCert().length()>0) {
-								OldUnlockJob uj = new OldUnlockJob("Unlock 2010");
+								OldUnlockJob uj = new OldUnlockJob("解鎖2010裝置");
 								uj.setPhoneCert(j.getPhoneCert());
 								uj.setPlatform(j.getPlatform());
 								uj.setStatus(j.getBLStatus());
@@ -1282,17 +1282,17 @@ public class MainSWT {
 								String serial = j.getSerial();
 								if (!j.alreadyUnlocked()) {
 									if (!blstatus.equals("ROOTABLE")) {
-										logger.info("Your phone bootloader cannot be officially unlocked");
-										logger.info("You can now unplug and restart your phone");
+										logger.info("你裝置的bootloader無法進行官方解鎖");
+										logger.info("你現在可以移開連接線並重啟你的裝置");
 									}
 									else {
-										logger.info("Now unplug your device and restart it into fastbootmode");
+										logger.info("你現在可以移開連接線並重啟到fastboot模式");
 										String result = (String)WidgetTask.openWaitDeviceForFastboot(shlSonyericsson);
 										if (result.equals("OK")) {
 											WidgetTask.openBLWizard(shlSonyericsson, serial, imei, ulcode, null, "U");
 										}
 										else {
-											logger.info("Bootloader unlock canceled");
+											logger.info("Bootloader已取消解鎖");
 										}
 									}
 								}
@@ -1300,7 +1300,7 @@ public class MainSWT {
 									WidgetTask.openBLWizard(shlSonyericsson, serial, imei, ulcode, flash, j.isRelocked()?"U":"R");
 									flash.closeDevice();
 									LogProgress.initProgress(0);
-									logger.info("You can now unplug and restart your device");
+									logger.info("你現在可以移開連接線並重啟你的裝置");
 									DeviceChangedListener.pause(false);								
 								}
 							}
@@ -1311,12 +1311,12 @@ public class MainSWT {
 			catch (Exception e) {
 				flash.closeDevice();
 				DeviceChangedListener.pause(false);
-				logger.info("Bootloader unlock canceled");
+				logger.info("Bootloader已取消解鎖");
 				LogProgress.initProgress(0);
 			}
 		}
 		else {
-			logger.info("Bootloader unlock canceled");
+			logger.info("Bootloader已取消解鎖");
 		}
 		}
 		catch (Exception e) {
@@ -1357,12 +1357,12 @@ public class MainSWT {
 	}
 
 	public void doBackupTA() {
-		WidgetTask.openOKBox(shlSonyericsson, "WARNING : This action will not create a backup of your TA.");
+		WidgetTask.openOKBox(shlSonyericsson, "警告:此動作不會建立TA備份");
 		Bundle bundle = new Bundle();
 		bundle.setSimulate(GlobalConfig.getProperty("simulate").toLowerCase().equals("yes"));
 		final X10flash flash = new X10flash(bundle,shlSonyericsson);
 		try {
-			logger.info("Please connect your device into flashmode.");
+			logger.info("請連接你的裝置到強刷模式");
 			String result = (String)WidgetTask.openWaitDeviceForFlashmode(shlSonyericsson,flash);
 			if (result.equals("OK")) {
 				BackupTAJob fjob = new BackupTAJob("Flash");
@@ -1370,11 +1370,11 @@ public class MainSWT {
 				fjob.schedule();
 			}
 			else
-				logger.info("Flash canceled");
+				logger.info("已取消寫入");
 		}
 		catch (Exception e){
 			logger.error(e.getMessage());
-			logger.info("Flash canceled");
+			logger.info("已取消寫入");
 			if (flash.getBundle()!=null)
 				flash.getBundle().close();
 		}
@@ -1382,7 +1382,7 @@ public class MainSWT {
 
 	public void doRoot() {
 		String pck = WidgetTask.openRootPackageSelector(shlSonyericsson);
-		RootJob rj = new RootJob("Root device");
+		RootJob rj = new RootJob("Root裝置");
 		rj.setRootPackage(pck);
 		rj.setParentShell(shlSonyericsson);
 		if (Devices.getCurrent().getVersion().contains("4.3") || Devices.getCurrent().getVersion().contains("4.4"))
@@ -1409,7 +1409,7 @@ public class MainSWT {
 	
 	public void doRoot(String rootmethod) {
 		String pck = WidgetTask.openRootPackageSelector(shlSonyericsson);
-		RootJob rj = new RootJob("Root device");
+		RootJob rj = new RootJob("Root裝置");
 		rj.setRootPackage(pck);
 		rj.setParentShell(shlSonyericsson);
 		rj.setAction(rootmethod);							
@@ -1419,7 +1419,7 @@ public class MainSWT {
 	public void doYaffs2Unpack() {
 		FileDialog dlg = new FileDialog(shlSonyericsson);
         dlg.setFilterExtensions(new String[]{"*.yaffs2"});
-        dlg.setText("YAFFS2 File Chooser");
+        dlg.setText("YAFFS2檔案選擇");
         String dir = dlg.open();
         if (dir != null) {
         	Yaffs2Job yj = new Yaffs2Job("YAFFS2 Extractor");
@@ -1427,6 +1427,6 @@ public class MainSWT {
         	yj.schedule();
         }
         else
-        	logger.info("Canceled");
+        	logger.info("已取消");
 	}
 }

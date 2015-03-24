@@ -71,7 +71,7 @@ public class ApkInstaller extends Dialog {
 	private void createContents() {
 		shlApkInstaller = new Shell(getParent(), getStyle());
 		shlApkInstaller.setSize(539, 302);
-		shlApkInstaller.setText("Apk Installer");
+		shlApkInstaller.setText("Apk安裝器");
 		shlApkInstaller.setLayout(new FormLayout());
 		
 		listViewerApk = new ListViewer(shlApkInstaller, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
@@ -122,7 +122,7 @@ public class ApkInstaller extends Dialog {
 		fd_lblAvailableFiles.top = new FormAttachment(0, 51);
 		fd_lblAvailableFiles.left = new FormAttachment(0, 10);
 		lblAvailableFiles.setLayoutData(fd_lblAvailableFiles);
-		lblAvailableFiles.setText("Available files :");
+		lblAvailableFiles.setText("可用檔案:");
 		
 		Button btnCancel = new Button(shlApkInstaller, SWT.NONE);
 		fd_listApk.right = new FormAttachment(btnCancel, 0, SWT.RIGHT);
@@ -136,7 +136,7 @@ public class ApkInstaller extends Dialog {
 				shlApkInstaller.dispose();
 			}
 		});
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		btnInstall = new Button(shlApkInstaller, SWT.NONE);
 		btnInstall.setEnabled(false);
@@ -151,7 +151,7 @@ public class ApkInstaller extends Dialog {
 				shlApkInstaller.dispose();
 			}
 		});
-		btnInstall.setText("Install");
+		btnInstall.setText("安裝");
 		
 		Composite composite = new Composite(shlApkInstaller, SWT.NONE);
 		fd_btnInstall.top = new FormAttachment(composite, 191);
@@ -167,7 +167,7 @@ public class ApkInstaller extends Dialog {
 		GridData gd_lblSourceFolder = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_lblSourceFolder.widthHint = 92;
 		lblSourceFolder.setLayoutData(gd_lblSourceFolder);
-		lblSourceFolder.setText("Source Folder : ");
+		lblSourceFolder.setText("來源資料夾: ");
 		txtSourceFolder = new Text(composite, SWT.BORDER);
 		GridData gd_txtSourceFolder = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_txtSourceFolder.widthHint = 359;
@@ -187,10 +187,10 @@ public class ApkInstaller extends Dialog {
 		        dlg.setFilterPath(txtSourceFolder.getText());
 
 		        // Change the title bar text
-		        dlg.setText("Directory chooser");
+		        dlg.setText("選擇資料夾");
 
 		        // Customizable message displayed in the dialog
-		        dlg.setMessage("Select a directory");
+		        dlg.setMessage("選擇一個資料夾");
 
 		        // Calling open() will open and run the dialog.
 		        // It will return the selected directory, or

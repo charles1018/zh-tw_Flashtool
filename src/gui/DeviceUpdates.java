@@ -102,7 +102,7 @@ public class DeviceUpdates extends Dialog {
 		    });
 
 		shlDeviceUpdateChecker.setSize(450, 300);
-		shlDeviceUpdateChecker.setText("Device Update Checker");
+		shlDeviceUpdateChecker.setText("裝置更新檢查");
 		
 		tabFolder = new CTabFolder(shlDeviceUpdateChecker, SWT.BORDER);
 		tabFolder.setBounds(11, 10, 423, 223);
@@ -112,9 +112,9 @@ public class DeviceUpdates extends Dialog {
 		closeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (closeButton.getText().equals("Close"))
+				if (closeButton.getText().equals("關閉"))
 					shlDeviceUpdateChecker.dispose();
-				else if (closeButton.getText().equals("Cancel")) {
+				else if (closeButton.getText().equals("取消")) {
 					dj.Cancel();
 				}
 					
@@ -122,12 +122,12 @@ public class DeviceUpdates extends Dialog {
 			}
 		});
 		closeButton.setBounds(359, 239, 75, 25);
-		closeButton.setText("Close");
+		closeButton.setText("關閉");
 		
 		lblInfo = new Label(shlDeviceUpdateChecker, SWT.NONE);
 		lblInfo.setBounds(11, 244, 342, 15);
 
-		FillJob fj = new FillJob("Update Search");
+		FillJob fj = new FillJob("搜尋更新");
 		fj.schedule();
 	}
 
@@ -151,7 +151,7 @@ public class DeviceUpdates extends Dialog {
 						  menuMgr.addMenuListener(new IMenuListener() {
 						    @Override
 						    public void menuAboutToShow(IMenuManager manager) {
-						    	  if (closeButton.getText().equals("Close")) {
+						    	  if (closeButton.getText().equals("關閉")) {
 								    	TableLine tl = (TableLine)tableViewer.getTable().getSelection()[0].getData();
 								    	if (tl.getValueOf(2).length()==0) {
 									    	manager.add(new Action("Check release") {
@@ -179,9 +179,9 @@ public class DeviceUpdates extends Dialog {
 						columns[0] = new TableColumn(tableViewer.getTable(), SWT.NONE);
 						columns[0].setText("Id");
 						columns[1] = new TableColumn(tableViewer.getTable(), SWT.NONE);
-						columns[1].setText("Branding");
+						columns[1].setText("地區");
 						columns[2] = new TableColumn(tableViewer.getTable(), SWT.NONE);
-						columns[2].setText("Version");
+						columns[2].setText("版本");
 						tableViewer.getTable().setHeaderVisible(true);
 						tableViewer.getTable().setLinesVisible(true);
 						TableSorter sort = new TableSorter(tableViewer);
@@ -190,7 +190,7 @@ public class DeviceUpdates extends Dialog {
 						tableViewer.setInput(result);
 						tableViewer.getTable().addListener(SWT.DefaultSelection, new Listener() {
 						      public void handleEvent(Event e) {
-						    	  if (closeButton.getText().equals("Close")) {
+						    	  if (closeButton.getText().equals("關閉")) {
 							    	  TableLine tl = (TableLine)tableViewer.getTable().getSelection()[0].getData();
 							    	  if (tl.getValueOf(2).length()==0) {
 							    		  	doCheck(tableViewer,tl,mu);
@@ -227,7 +227,7 @@ public class DeviceUpdates extends Dialog {
 	}
 
 	public void doDownload(TableLine tl, DeviceEntryModelUpdater mu) {
-    	dj = new DownloadJob("Download FW");
+    	dj = new DownloadJob("下載韌體");
     	dj.setCDF(tl.getValueOf(0));
     	String path = OS.getFolderFirmwaresDownloaded()+File.separator+mu.getModel()+"_"+tl.getValueOf(1).replaceAll(" ","_") + "_" + mu.getReleaseOf(tl.getValueOf(0));
     	dj.setPath(path);
@@ -236,7 +236,7 @@ public class DeviceUpdates extends Dialog {
 	}
 
 	public void doCheck(TableViewer tableViewer, TableLine tl, DeviceEntryModelUpdater mu) {
-		cj = new CheckJob("Release checker");
+		cj = new CheckJob("檢查更新");
 		cj.setTableLine(tl);
 		cj.setTableViewer(tableViewer);
 		cj.setModelUpdater(mu);
@@ -275,7 +275,7 @@ public class DeviceUpdates extends Dialog {
 					Display.getDefault().asyncExec(
 							new Runnable() {
 								public void run() {
-									lblInfo.setText("Searching for updates. Please wait");
+									lblInfo.setText("正在檢查最新版本,請稍後...");
 								}
 							}
 					);
@@ -319,7 +319,7 @@ public class DeviceUpdates extends Dialog {
 					Display.getDefault().asyncExec(
 							new Runnable() {
 								public void run() {
-									closeButton.setText("Close");
+									closeButton.setText("關閉");
 									lblInfo.setText("");
 								}
 							}
@@ -341,8 +341,8 @@ public class DeviceUpdates extends Dialog {
 			Display.getDefault().asyncExec(
 					new Runnable() {
 						public void run() {
-							closeButton.setText("Cancel");
-							lblInfo.setText("Checking latest release. Please wait ...");
+							closeButton.setText("取消");
+							lblInfo.setText("正在檢查最新版本,請稍後...");
 						}
 					}
 			);
@@ -391,15 +391,15 @@ public class DeviceUpdates extends Dialog {
 		
 		public void setPath(String path) {
 			_path = path;
-			logger.info("Saving firmware to " + _path);
+			logger.info("儲存韌體到" + _path);
 		}
 		
 	    protected IStatus run(IProgressMonitor monitor) {
 			Display.getDefault().asyncExec(
 					new Runnable() {
 						public void run() {
-							closeButton.setText("Cancel");
-							lblInfo.setText("Downloading latest release. Please wait ...");
+							closeButton.setText("取消");
+							lblInfo.setText("正在下載最新版本,請稍後...");
 						}
 					}
 			);
@@ -410,11 +410,11 @@ public class DeviceUpdates extends Dialog {
         			Display.getDefault().asyncExec(
         					new Runnable() {
         						public void run() {
-        							lblInfo.setText("Decrypting FileSets. Please wait ...");
+        							lblInfo.setText("解壓轉換檔案中,請稍後...");
         						}
         					}
         			);            		
-    					DecryptJob dec = new DecryptJob("Decrypt");
+    					DecryptJob dec = new DecryptJob("解壓轉換");
     					dec.addJobChangeListener(new IJobChangeListener() {
     						public void aboutToRun(IJobChangeEvent event) {
     						}
@@ -426,20 +426,20 @@ public class DeviceUpdates extends Dialog {
     							Display.getDefault().syncExec(
     									new Runnable() {
     										public void run() {
-    											lblInfo.setText("Creating Bundle. Please wait ...");
+    											lblInfo.setText("正在建立韌體中,請稍後...");
     								    		BundleCreator cre = new BundleCreator(shlDeviceUpdateChecker,SWT.PRIMARY_MODAL | SWT.SHEET);
     								    		cre.setBranding(mu.getCustIds().getProperty(cdfval).replaceAll(" ", "_"));
     								    		cre.setVariant(mu.getDevice().getName(), mu.getModel());
     								    		cre.setVersion(mu.getReleaseOf(cdfval));
     								    		bundleResult = (String)cre.open(_path+File.separator+"decrypted");
     								    		lblInfo.setText("");
-    	    									closeButton.setText("Close");
+    	    									closeButton.setText("關閉");
     										}
     									}
     							);
 
-    							if (bundleResult.equals("Cancel"))
-    								logger.info("Bundle creation canceled");
+    							if (bundleResult.equals("取消"))
+    								logger.info("已取消建立韌體");
     						}
 
     						public void running(IJobChangeEvent event) {
@@ -459,7 +459,7 @@ public class DeviceUpdates extends Dialog {
 							new Runnable() {
 								public void run() {
 						    		lblInfo.setText("");
-									closeButton.setText("Close");
+									closeButton.setText("關閉");
 								}
 							}
 					);            		

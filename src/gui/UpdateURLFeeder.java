@@ -27,7 +27,7 @@ public class UpdateURLFeeder extends Dialog {
 	 */
 	public UpdateURLFeeder(Shell parent, int style) {
 		super(parent, style);
-		setText("Root Package chooser");
+		setText("Root包選擇");
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class UpdateURLFeeder extends Dialog {
 		
 		Label lblNewLabel = new Label(shlUpdateUrlFeeder, SWT.NONE);
 		lblNewLabel.setBounds(10, 10, 111, 15);
-		lblNewLabel.setText("Enter update URL :");
+		lblNewLabel.setText("輸入更新網址:");
 		
 		text = new Text(shlUpdateUrlFeeder, SWT.BORDER);
 		text.setBounds(10, 31, 339, 21);
@@ -67,7 +67,7 @@ public class UpdateURLFeeder extends Dialog {
 		      }
 		    });
 		shlUpdateUrlFeeder.setSize(365, 128);
-		shlUpdateUrlFeeder.setText("Update URL Feeder");
+		shlUpdateUrlFeeder.setText("更新網址");
 		
 		Button btnCancel = new Button(shlUpdateUrlFeeder, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter() {
@@ -78,7 +78,7 @@ public class UpdateURLFeeder extends Dialog {
 			}
 		});
 		btnCancel.setBounds(274, 64, 75, 25);
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Button btnOK = new Button(shlUpdateUrlFeeder, SWT.NONE);
 		btnOK.addSelectionListener(new SelectionAdapter() {
@@ -89,7 +89,7 @@ public class UpdateURLFeeder extends Dialog {
 			}
 		});
 		btnOK.setBounds(193, 64, 75, 25);
-		btnOK.setText("Ok");
+		btnOK.setText("確定");
 
 	}
 }

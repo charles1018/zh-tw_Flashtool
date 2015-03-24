@@ -30,7 +30,7 @@ public class DBEditor extends Dialog {
 	 */
 	public DBEditor(Shell parent, int style) {
 		super(parent, style);
-		setText("Import FTF from Sony Database");
+		setText("從Sony資料庫匯入FTF韌體原始檔");
 	}
 
 	/**

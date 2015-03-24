@@ -40,7 +40,7 @@ public class BusyboxSelector extends Dialog {
 	 */
 	public BusyboxSelector(Shell parent, int style) {
 		super(parent, style);
-		setText("Busybox Selector");
+		setText("Busybox選擇器");
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class BusyboxSelector extends Dialog {
 	private void createContents() {
 		shlBusyboxSelector = new Shell(getParent(), getStyle());
 		shlBusyboxSelector.setSize(168, 434);
-		shlBusyboxSelector.setText("Busybox Selector");
+		shlBusyboxSelector.setText("Busybox選擇器");
 		shlBusyboxSelector.setLayout(new FormLayout());
 		
 		btnCancel = new Button(shlBusyboxSelector, SWT.NONE);
@@ -81,7 +81,7 @@ public class BusyboxSelector extends Dialog {
 				shlBusyboxSelector.dispose();
 			}
 		});
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		ListViewer listBusyboxViewer = new ListViewer(shlBusyboxSelector, SWT.BORDER | SWT.V_SCROLL);
 		listBusybox = listBusyboxViewer.getList();
 		fd_btnCancel.top = new FormAttachment(listBusybox, 6);

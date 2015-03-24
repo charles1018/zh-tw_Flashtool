@@ -162,7 +162,7 @@ public class BundleCreator extends Dialog {
 	private void createContents() {
 		shlBundler = new Shell(getParent(), getStyle());
 		shlBundler.setSize(626, 447);
-		shlBundler.setText("Bundler");
+		shlBundler.setText("韌體");
 		shlBundler.setLayout(new FormLayout());
 		
 		listViewerFiles = new ListViewer(shlBundler, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
@@ -205,7 +205,7 @@ public class BundleCreator extends Dialog {
 		fd_lblNewLabel = new FormData();
 		fd_lblNewLabel.left = new FormAttachment(0, 10);
 		lblNewLabel_3.setLayoutData(fd_lblNewLabel);
-		lblNewLabel_3.setText("folder list :");
+		lblNewLabel_3.setText("資料夾清單:");
 		
 		composite_5 = new Composite(shlBundler, SWT.NONE);
 		fd_list.bottom = new FormAttachment(composite_5, 0, SWT.BOTTOM);
@@ -252,35 +252,35 @@ public class BundleCreator extends Dialog {
 		fd_btnCancel.right = new FormAttachment(100, -10);
 		fd_btnCancel.bottom = new FormAttachment(100, -10);
 		btnCancel.setLayoutData(fd_btnCancel);
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Button btnCreate = new Button(shlBundler, SWT.NONE);
 		btnCreate.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (sourceFolder.getText().length()==0) {
-					showErrorMessageBox("You must point to a folder containing sin files");
+					showErrorMessageBox("你必須選擇一個包含sin檔案的資料夾");
 					return;					
 				}
 				if ((device.getText().length()==0) || (version.getText().length()==0) || (branding.getText().length()==0)) {
-					showErrorMessageBox("Device, Versio, Branding : all fields must be set");
+					showErrorMessageBox("裝置, 版本, 地區 : 所有選項都必須設定");
 					return;
 				}
 				File f = new File(OS.getFolderFirmwares()+File.separator+_variant+"_"+version.getText()+"_"+branding.getText()+".ftf");
 				if (f.exists()) {
-					showErrorMessageBox("This bundle name already exists");
+					showErrorMessageBox("已存在相同名稱的韌體");
 					return;
 				}
 				try {
 					if (f.createNewFile()) 
 						f.delete();
 					else {
-						showErrorMessageBox("The built filename from variant, version and branding is not valid. Choose another name");
+						showErrorMessageBox("新建檔案中的版本號，地區都是無效的. 請選擇另外一個名稱");
 						return;
 					}
 				}
 				catch (IOException ioe) {
-					showErrorMessageBox("The built filename from variant, version and branding is not valid. Choose another name");
+					showErrorMessageBox("新建檔案中的版本號，地區都是無效的. 請選擇另外一個名稱");
 					return;						
 				}
 				Bundle b = new Bundle();
@@ -300,7 +300,7 @@ public class BundleCreator extends Dialog {
 								if (res.equals("L"))
 									b.setLoader(new File(ent.getLoader()));
 								else {
-									showErrorMessageBox("This bundle must contain a loader");
+									showErrorMessageBox("目前的韌體必須包含loader");
 									return;
 								}
 
@@ -309,7 +309,7 @@ public class BundleCreator extends Dialog {
 							b.setLoader(new File(ent.getLoader()));
 						}
 				}
-				createFTFJob j = new createFTFJob("Create FTF");
+				createFTFJob j = new createFTFJob("建立FTF");
 				j.setBundle(b);
 				j.schedule();
 				shlBundler.dispose();
@@ -319,7 +319,7 @@ public class BundleCreator extends Dialog {
 		fd_btnCreate.bottom = new FormAttachment(btnCancel, 0, SWT.BOTTOM);
 		fd_btnCreate.right = new FormAttachment(btnCancel, -6);
 		btnCreate.setLayoutData(fd_btnCreate);
-		btnCreate.setText("Create");
+		btnCreate.setText("建立");
 		
 		btnNewButton_1 = new Button(shlBundler, SWT.NONE);
 		fd_list.right = new FormAttachment(btnNewButton_1, -6);
@@ -401,7 +401,7 @@ public class BundleCreator extends Dialog {
 		GridData gd_lblSelectSourceFolder = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_lblSelectSourceFolder.widthHint = 121;
 		lblSelectSourceFolder.setLayoutData(gd_lblSelectSourceFolder);
-		lblSelectSourceFolder.setText("Select source folder :");
+		lblSelectSourceFolder.setText("選擇來源資料夾:");
 		
 		sourceFolder = new Text(composite, SWT.BORDER);
 		sourceFolder.setEditable(false);
@@ -421,10 +421,10 @@ public class BundleCreator extends Dialog {
 		        dlg.setFilterPath(sourceFolder.getText());
 
 		        // Change the title bar text
-		        dlg.setText("Directory chooser");
+		        dlg.setText("選擇資料夾");
 
 		        // Customizable message displayed in the dialog
-		        dlg.setMessage("Select a directory");
+		        dlg.setMessage("選擇一個資料夾");
 
 		        // Calling open() will open and run the dialog.
 		        // It will return the selected directory, or
@@ -475,10 +475,10 @@ public class BundleCreator extends Dialog {
 		GridData gd_lblNewLabel = new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1);
 		gd_lblNewLabel.widthHint = 68;
 		lblNewLabel.setLayoutData(gd_lblNewLabel);
-		lblNewLabel.setText("Device :");
+		lblNewLabel.setText("裝置:");
 		
 		device = new Text(composite_1, SWT.BORDER);
-		device.setToolTipText("Double click to get list of devices");
+		device.setToolTipText("按兩下獲取裝置清單");
 		device.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
@@ -498,7 +498,7 @@ public class BundleCreator extends Dialog {
 		new Label(composite_1, SWT.NONE);
 		
 		lblNewLabel_2 = new Label(composite_1, SWT.NONE);
-		lblNewLabel_2.setText("Branding :");
+		lblNewLabel_2.setText("地區:");
 		
 		branding = new Text(composite_1, SWT.BORDER);
 		GridData gd_branding = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -507,10 +507,10 @@ public class BundleCreator extends Dialog {
 		
 		btnNoFinalVerification = new Button(composite_1, SWT.CHECK);
 		btnNoFinalVerification.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
-		btnNoFinalVerification.setText("No final verification");
+		btnNoFinalVerification.setText(無最終驗證");
 		
 		Label lblNewLabel_1 = new Label(composite_1, SWT.NONE);
-		lblNewLabel_1.setText("Version :");
+		lblNewLabel_1.setText("版本:");
 		
 		version = new Text(composite_1, SWT.BORDER);
 		GridData gd_version = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
@@ -524,7 +524,7 @@ public class BundleCreator extends Dialog {
 		fd_lblFirmwareContent.bottom = new FormAttachment(composite_5, -6);
 		fd_lblFirmwareContent.left = new FormAttachment(composite_5, 0, SWT.LEFT);
 		lblFirmwareContent.setLayoutData(fd_lblFirmwareContent);
-		lblFirmwareContent.setText("Firmware content :");
+		lblFirmwareContent.setText("韌體內容:");
 		
 		branding.setText(_branding);
 		version.setText(_version);
@@ -535,7 +535,7 @@ public class BundleCreator extends Dialog {
 	
 	public void showErrorMessageBox(String message) {
 		MessageBox mb = new MessageBox(shlBundler,SWT.ICON_ERROR|SWT.OK);
-		mb.setText("Errorr");
+		mb.setText("錯誤");
 		mb.setMessage(message);
 		int result = mb.open();
 	}

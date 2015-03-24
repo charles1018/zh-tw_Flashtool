@@ -70,7 +70,7 @@ public class TABackupSelector extends Dialog {
 	private void createContents() {
 		shlTABackupSelector = new Shell(getParent(), getStyle());
 		shlTABackupSelector.setSize(354, 434);
-		shlTABackupSelector.setText("TA Backup Selector");
+		shlTABackupSelector.setText("選擇TA備份");
 		shlTABackupSelector.setLayout(new FormLayout());
 		
 		btnCancel = new Button(shlTABackupSelector, SWT.NONE);
@@ -84,7 +84,7 @@ public class TABackupSelector extends Dialog {
 				shlTABackupSelector.dispose();
 			}
 		});
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		ListViewer listTAViewer = new ListViewer(shlTABackupSelector, SWT.BORDER | SWT.V_SCROLL);
 		listTA = listTAViewer.getList();
 		fd_btnCancel.top = new FormAttachment(listTA, 6);
@@ -143,11 +143,11 @@ public class TABackupSelector extends Dialog {
 						tabackups.add(attr.getValue("timestamp")+ " : " + attr.getValue("build"));
 					}
 					else {
-						logger.info("File skipped : "+chld[i].getName()+". Not for your device");
+						logger.info("跳過檔案: "+chld[i].getName()+". 不適用於你的裝置");
 					}
 					jf.close();
 				} catch (Exception e) {
-					logger.error("This file : " + chld[i].getName()+" is corrupted");
+					logger.error("此檔案: " + chld[i].getName()+"已損壞");
 				}
 				
 			}

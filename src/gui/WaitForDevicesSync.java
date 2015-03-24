@@ -32,7 +32,7 @@ public class WaitForDevicesSync extends Dialog {
 	 */
 	public WaitForDevicesSync(Shell parent, int style) {
 		super(parent, style);
-		setText("Syncing devices from Github");
+		setText("正在從Github同步裝置資料夾");
 		mydial = this;
 	}
 
@@ -46,7 +46,7 @@ public class WaitForDevicesSync extends Dialog {
 		
 		Label lblNewLabel = new Label(shlWaiForDevicesSync, SWT.NONE);
 		lblNewLabel.setBounds(10, 32, 323, 15);
-		lblNewLabel.setText("Please wait until the end of process");
+		lblNewLabel.setText("請耐心等待同步完成，首次使用時所需同步時間會比較久！");
 		shlWaiForDevicesSync.open();
 		shlWaiForDevicesSync.layout();
 		Display display = getParent().getDisplay();
@@ -76,7 +76,7 @@ public class WaitForDevicesSync extends Dialog {
 		      }
 		    });
 		shlWaiForDevicesSync.setSize(365, 128);
-		shlWaiForDevicesSync.setText("Syncing devices from Github");
+		shlWaiForDevicesSync.setText("正在從Github同步裝置資料夾");
 		DevicesSyncJob sync = new DevicesSyncJob("GitSync");
 		sync.addJobChangeListener(new IJobChangeListener() {
 			public void aboutToRun(IJobChangeEvent event) {

@@ -45,7 +45,7 @@ public class DeviceSelector extends Dialog {
 	 */
 	public DeviceSelector(Shell parent, int style) {
 		super(parent, style);
-		setText("Device Selector");
+		setText("裝置選擇器");
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class DeviceSelector extends Dialog {
 	private void createContents() {
 		shlDeviceSelector = new Shell(getParent(), getStyle());
 		shlDeviceSelector.setSize(289, 434);
-		shlDeviceSelector.setText("Device Selector");
+		shlDeviceSelector.setText("裝置選擇器");
 		shlDeviceSelector.setLayout(new FormLayout());
 		
 		Button btnCancel = new Button(shlDeviceSelector, SWT.NONE);
@@ -107,7 +107,7 @@ public class DeviceSelector extends Dialog {
 		fd_btnCancel.bottom = new FormAttachment(100, -10);
 		fd_btnCancel.right = new FormAttachment(100, -10);
 		btnCancel.setLayoutData(fd_btnCancel);
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Composite compositeTable = new Composite(shlDeviceSelector, SWT.NONE);
 		compositeTable.setLayout(new FillLayout(SWT.HORIZONTAL));
@@ -127,7 +127,7 @@ public class DeviceSelector extends Dialog {
 		columns[0] = new TableColumn(tableDevices, SWT.NONE);
 		columns[0].setText("Id");
 		columns[1] = new TableColumn(tableDevices, SWT.NONE);
-		columns[1].setText("Name");
+		columns[1].setText("名稱");
 		tableDevices.setHeaderVisible(true);
 		tableDevices.setLinesVisible(true);
 		tableDevices.addListener(SWT.DefaultSelection, new Listener() {

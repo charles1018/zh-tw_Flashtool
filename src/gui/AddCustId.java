@@ -40,7 +40,7 @@ public class AddCustId extends Dialog {
 	 */
 	public AddCustId(Shell parent, int style) {
 		super(parent, style);
-		setText("Root Package chooser");
+		setText("選擇Root包");
 	}
 
 	/**
@@ -96,11 +96,11 @@ public class AddCustId extends Dialog {
 		
 		Label lblModel = new Label(shlAddCdfID, SWT.NONE);
 		lblModel.setBounds(10, 18, 55, 15);
-		lblModel.setText("Model :");
+		lblModel.setText("型號:");
 		
 		Label lblNewLabel_1 = new Label(shlAddCdfID, SWT.NONE);
 		lblNewLabel_1.setBounds(10, 92, 55, 15);
-		lblNewLabel_1.setText("Name :");
+		lblNewLabel_1.setText("名稱:");
 		
 		textName = new Text(shlAddCdfID, SWT.BORDER);
 		textName.setBounds(10, 113, 194, 21);
@@ -108,7 +108,7 @@ public class AddCustId extends Dialog {
 		if (result.getProperty("CDA")!=null)
 			textID.setText(result.getProperty("CDA"));
 		if (result.getProperty("REGION")!=null)
-			textName.setText(result.getProperty("REGION"));
+			textName.setText(result.getProperty("地區"));
 		
 		shlAddCdfID.open();
 		shlAddCdfID.layout();
@@ -134,7 +134,7 @@ public class AddCustId extends Dialog {
 		      }
 		    });
 		shlAddCdfID.setSize(237, 209);
-		shlAddCdfID.setText("Add CdfID");
+		shlAddCdfID.setText("增加 CdfID");
 		
 		Button btnCancel = new Button(shlAddCdfID, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter() {
@@ -145,14 +145,14 @@ public class AddCustId extends Dialog {
 			}
 		});
 		btnCancel.setBounds(146, 143, 75, 25);
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Button btnOK = new Button(shlAddCdfID, SWT.NONE);
 		btnOK.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if (comboModel.getText().length()==0 || textID.getText().length()==0 || textName.getText().length()==0)
-					WidgetTask.openOKBox(shlAddCdfID, "All fields must be set");
+					WidgetTask.openOKBox(shlAddCdfID, "所有欄位都必須設定");
 				else {
 					TableLine l = new TableLine();
 					l.add(textID.getText());
@@ -165,7 +165,7 @@ public class AddCustId extends Dialog {
 			}
 		});
 		btnOK.setBounds(60, 143, 75, 25);
-		btnOK.setText("Ok");
+		btnOK.setText("確定");
 
 	}
 

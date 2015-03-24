@@ -25,7 +25,7 @@ public class RootPackageSelector extends Dialog {
 	 */
 	public RootPackageSelector(Shell parent, int style) {
 		super(parent, style);
-		setText("Root Package chooser");
+		setText("Root包選擇");
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class RootPackageSelector extends Dialog {
 			}
 		});
 		btnCancel.setBounds(138, 64, 75, 25);
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Button btnOK = new Button(shell, SWT.NONE);
 		btnOK.addSelectionListener(new SelectionAdapter() {
@@ -90,7 +90,7 @@ public class RootPackageSelector extends Dialog {
 			}
 		});
 		btnOK.setBounds(57, 64, 75, 25);
-		btnOK.setText("Ok");
+		btnOK.setText("確定");
 
 	}
 }

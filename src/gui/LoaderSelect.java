@@ -25,7 +25,7 @@ public class LoaderSelect extends Dialog {
 	 */
 	public LoaderSelect(Shell parent, int style) {
 		super(parent, style);
-		setText("Loader chooser");
+		setText("選擇Loader");
 	}
 
 	/**
@@ -62,12 +62,12 @@ public class LoaderSelect extends Dialog {
 		
 		btnLocked = new Button(shell, SWT.RADIO);
 		btnLocked.setBounds(42, 10, 110, 16);
-		btnLocked.setText("Locked loader");
+		btnLocked.setText("上鎖loader");
 		btnLocked.setSelection(true);
 		
 		Button btnUnlocked = new Button(shell, SWT.RADIO);
 		btnUnlocked.setBounds(42, 32, 110, 16);
-		btnUnlocked.setText("Unlocked loader");
+		btnUnlocked.setText("解鎖loader");
 		
 		Button btnCancel = new Button(shell, SWT.NONE);
 		btnCancel.addSelectionListener(new SelectionAdapter() {
@@ -78,7 +78,7 @@ public class LoaderSelect extends Dialog {
 			}
 		});
 		btnCancel.setBounds(138, 64, 75, 25);
-		btnCancel.setText("Cancel");
+		btnCancel.setText("取消");
 		
 		Button btnOK = new Button(shell, SWT.NONE);
 		btnOK.addSelectionListener(new SelectionAdapter() {
@@ -90,7 +90,7 @@ public class LoaderSelect extends Dialog {
 			}
 		});
 		btnOK.setBounds(57, 64, 75, 25);
-		btnOK.setText("Ok");
+		btnOK.setText("確定");
 
 	}
 }
