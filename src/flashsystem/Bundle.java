@@ -75,7 +75,7 @@ public final class Bundle {
 		try {
 			_firmware = new JarFile(path);
 			_meta = new BundleMetaData();
-			logger.debug("Creating bundle from ftf file : "+_firmware.getName());
+			logger.debug("正在打包韌體為ftf檔案: "+_firmware.getName());
 			_device = _firmware.getManifest().getMainAttributes().getValue("device");
 			_version = _firmware.getManifest().getMainAttributes().getValue("version");
 			_branding = _firmware.getManifest().getMainAttributes().getValue("branding");
@@ -91,13 +91,13 @@ public final class Bundle {
 					catch (Exception e1) {e1.printStackTrace();
 					}
 					bundleList.put(entry.getName(), entry);
-					logger.debug("Added this entry to the bundle list : "+entry.getName());
+					logger.debug("已增加此項到韌體內容清單: "+entry.getName());
 				}
 				}
 			}
 		}
 		catch (IOException ioe) {
-			logger.error("Cannot open the file "+path);
+			logger.error("無法打開這個檔案"+path);
 		}
 	}
 
@@ -106,7 +106,7 @@ public final class Bundle {
 		for (int i=0;i<list.length;i++) {
 			BundleEntry entry = new BundleEntry(list[i],list[i].getName());
 			bundleList.put(entry.getName(), entry);
-			logger.debug("Added this entry to the bundle list : "+entry.getName());
+			logger.debug("已增加此項到韌體內容清單: "+entry.getName());
 		}
 	}
 
@@ -117,7 +117,7 @@ public final class Bundle {
 			String name = all.nextElement();
 			BundleEntry entry = new BundleEntry(new File(_meta.getPath(name)),name);
 			bundleList.put(entry.getName(), entry);
-			logger.debug("Added this entry to the bundle list : "+entry.getName());
+			logger.debug("已增加此項到韌體內容清單: "+entry.getName());
 		}
 	}
 
@@ -266,7 +266,7 @@ public final class Bundle {
 			String name = entry.getName();
 			int S1pos = name.toUpperCase().indexOf("_S1");
 			if (S1pos > 0) name = name.substring(0,S1pos)+".sin";
-			logger.info("Adding "+name+" to the bundle");
+			logger.info("正在增加"+name+"到韌體");
 		    JarEntry jarAdd = new JarEntry(name);
 	        out.putNextEntry(jarAdd);
 	        InputStream in = entry.getInputStream();
@@ -284,7 +284,7 @@ public final class Bundle {
 				Enumeration files = xml.getFiles();
 				while (files.hasMoreElements()) {
 					String bootname = (String)files.nextElement();
-					logger.info("Adding "+bootname+" to the bundle");
+					logger.info("正在增加"+bootname+"到韌體");
 				    jarAdd = new JarEntry("boot/"+bootname.replace(".sin", ".sinb").replace(".ta", ".tab"));
 			        out.putNextEntry(jarAdd);
 			        InputStream bin = new FileInputStream(new File(folder+File.separator+bootname));
@@ -302,7 +302,7 @@ public final class Bundle {
 		}
 		out.close();
 	    stream.close();
-	    logger.info("Creating torrent file : "+ftf.getAbsolutePath()+".torrent");
+	    logger.info("正在建立種子檔案: "+ftf.getAbsolutePath()+".torrent");
 	    List<URI> l1 = new ArrayList<URI>();
 	    List<URI> l2 = new ArrayList<URI>();
 	    List<URI> l3 = new ArrayList<URI>();
@@ -318,17 +318,17 @@ public final class Bundle {
 	    torrent.save(fout);
 	    fout.flush();
 	    fout.close();
-	    logger.info("Torrent file creation finished");
+	    logger.info("種子檔案已經建立完成");
 	    LogProgress.initProgress(0);
 	}
 
 	private void saveEntry(BundleEntry entry, boolean addmeta) throws IOException {
 		if (entry.isJarEntry()) {
-			logger.debug("Saving entry "+entry.getName()+" to disk");
+			logger.debug("正在儲存"+entry.getName()+"到硬碟");
 			InputStream in = entry.getInputStream();
 			String outname = OS.getFolderFirmwaresPrepared()+File.separator+entry.getName();
 			new File(outname).getParentFile().mkdirs();
-			logger.debug("Writing Entry to "+outname);
+			logger.debug("正在寫出選項到"+outname);
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(outname));
 			byte[] buffer = new byte[10240];
 			int len;
@@ -405,17 +405,17 @@ public final class Bundle {
 
 	public boolean open() {
 		try {
-			logger.info("Preparing files for flashing");
+			logger.info("正在準備檔案中...");
 			File f = new File(OS.getFolderFirmwaresPrepared());
 			if (f.exists()) {
 				File[] f1 = f.listFiles();
 				for (int i = 0;i<f1.length;i++) {
-					if (!f1[i].delete()) throw new Exception("Cannot delete "+f1[i].getAbsolutePath());
+					if (!f1[i].delete()) throw new Exception("無法刪除"+f1[i].getAbsolutePath());
 				}
-				if (!f.delete()) throw new Exception("Cannot delete "+f.getAbsolutePath());
+				if (!f.delete()) throw new Exception("無法刪除"+f.getAbsolutePath());
 			}
 			f.mkdir();
-			logger.debug("Created the "+f.getName()+" folder");
+			logger.debug("已建立資料夾"+f.getName()+" folder");
 			Enumeration<String> entries = _meta.getAllEntries(true);
 			while (entries.hasMoreElements()) {
 				String entry = entries.nextElement();
@@ -480,7 +480,7 @@ public final class Bundle {
 	}
 
 	public String toString() {
-	    return "Bundle for " + Devices.getVariantName(_device) + ". FW release : " + _version + ". Customization : " + _branding;
+	    return "韌體適用" + Devices.getVariantName(_device) + ". 韌體版本 : " + _version + ". 地區 : " + _branding;
 	}
 	
 	public XMLBootDelivery getXMLBootDelivery() {

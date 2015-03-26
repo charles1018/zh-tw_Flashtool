@@ -58,7 +58,7 @@ public class Firmware {
 			currentFileset.setFolder(path);
 			if (currentFileset.download()) result.add(new File(path+File.separator+currentFileset.getName()));
 			else {
-				logger.error("Error downloading "+currentFileset.getName());
+				logger.error("下載錯誤"+currentFileset.getName());
 				localDownloaded = false;
 			}
 			LogProgress.initProgress(0);

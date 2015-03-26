@@ -36,27 +36,27 @@ public class FlasherConsole {
 			StatusListener phoneStatus = new StatusListener() {
 				public void statusChanged(StatusEvent e) {
 					if (!e.isDriverOk()) {
-						logger.error("Drivers need to be installed for connected device.");
-						logger.error("You can find them in the drivers folder of Flashtool.");
+						logger.error("你需要先安裝驅動才能連接裝置");
+						logger.error("在Flashtool的drivers資料夾可以找到驅動安裝檔案");
 					}
 					else {
 						if (e.getNew().equals("adb")) {
-							logger.info("Device connected with USB debugging on");
-							logger.debug("Device connected, continuing with identification");
+							logger.info("裝置已通過USB偵錯模式連接");
+							logger.debug("裝置已連接，正在識別裝置...");
 							doIdent();
 						}
 						if (e.getNew().equals("none")) {
-							logger.info("Device disconnected");
+							logger.info("裝置未連接");
 						}
 						if (e.getNew().equals("flash")) {
-							logger.info("Device connected in flash mode");
+							logger.info("裝置已連接為強刷模式");
 						}
 						if (e.getNew().equals("fastboot")) {
-							logger.info("Device connected in fastboot mode");
+							logger.info("裝置已連接到fastboot模式");
 						}
 						if (e.getNew().equals("normal")) {
-							logger.info("Device connected with USB debugging off");
-							logger.info("For 2011 devices line, be sure you are not in MTP mode");
+							logger.info("裝置已連接，但是未打開USB偵錯");
+							logger.info("對於2011年的Xperia裝置,請確認你不是在MTP模式下進行連接");
 						}
 					}
 				}
@@ -87,12 +87,12 @@ public class FlasherConsole {
 		if (Devices.getCurrent().getVersion().contains("2.3")) {
 			if (!Devices.getCurrent().hasRoot())
 				doRootzergRush();
-			else logger.error("Your device is already rooted");
+			else logger.error("你的裝置已經root");
 		}
 		else 
 			if (!Devices.getCurrent().hasRoot())
 				doRootpsneuter();
-			else logger.error("Your device is already rooted");
+			else logger.error("你的裝置已經root");
 		exit();
 	}
 
@@ -103,14 +103,14 @@ public class FlasherConsole {
 					shell.run(true);
 					AdbUtility.push(new File("."+fsep+"custom"+fsep+"root"+fsep+"zergrush.tar.uue").getAbsolutePath(),GlobalConfig.getProperty("deviceworkdir"));
 					shell = new FTShell("rootit");
-					logger.info("Running part1 of Root Exploit, please wait");
+					logger.info("正在運行Root的第一步動作，請稍後...");
 					shell.run(true);
 					Devices.waitForReboot(true);
-					logger.info("Running part2 of Root Exploit");
+					logger.info("正在運行Root的第二步動作");
 					shell = new FTShell("rootit2");
 					shell.run(false);
-					logger.info("Finished!.");
-					logger.info("Root should be available after reboot!");		
+					logger.info("完成!.");
+					logger.info("Root在重啟後生效!");		
 				}
 				catch (Exception e) {
 					logger.error(e.getMessage());
@@ -124,14 +124,14 @@ public class FlasherConsole {
 					shell.run(true);
 					AdbUtility.push("."+fsep+"custom"+fsep+"root"+fsep+"psneuter.tar.uue",GlobalConfig.getProperty("deviceworkdir"));
 					shell = new FTShell("rootit");
-					logger.info("Running part1 of Root Exploit, please wait");
+					logger.info("正在運行Root的第一步動作，請稍後...");
 					shell.run(false);
 					Devices.waitForReboot(true);
-					logger.info("Running part2 of Root Exploit");
+					logger.info("正在運行Root的第二步動作");
 					shell = new FTShell("rootit2");
 					shell.run(false);
-					logger.info("Finished!.");
-					logger.info("Root should be available after reboot!");		
+					logger.info("完成");
+					logger.info("Root在重啟後生效!");		
 				}
 				catch (Exception e) {
 					logger.error(e.getMessage());
@@ -144,7 +144,7 @@ public class FlasherConsole {
 			Bundle b = new Bundle();
 			b.setSimulate(false);
 			f = new X10flash(b,null);
-			logger.info("Please connect your phone in flash mode");
+			logger.info("請連接你的手機到強刷模式");
 			while (!f.deviceFound());
 			f.openDevice(false);
 			logger.info("IMEI : "+f.getPhoneProperty("IMEI"));
@@ -171,10 +171,10 @@ public class FlasherConsole {
 		try {
 			File bf = new File(file);
 			if (!bf.exists()) {
-				logger.error("File "+bf.getAbsolutePath()+" does not exist");
+				logger.error("檔案"+bf.getAbsolutePath()+"不存在");
 				exit();
 			}
-			logger.info("Choosed "+bf.getAbsolutePath());
+			logger.info("已選擇"+bf.getAbsolutePath());
 			Bundle b = new Bundle(bf.getAbsolutePath(),Bundle.JARTYPE);
 			b.setSimulate(false);
 			b.getMeta().setCategEnabled("DATA", wipedata);
@@ -182,10 +182,10 @@ public class FlasherConsole {
 			b.getMeta().setCategEnabled("BASEBAND", excludebb);
 			b.getMeta().setCategEnabled("SYSTEM", excludesys);
 			b.getMeta().setCategEnabled("KERNEL", excludekrnl);
-			logger.info("Preparing files for flashing");
+			logger.info("正在準備檔案...");
 			b.open();
 			f = new X10flash(b,null);
-			logger.info("Please connect your phone in flash mode");
+			logger.info("請連接你的裝置到強刷模式");
 			while (!f.deviceFound());
 			f.openDevice(false);
 			f.flashDevice();
@@ -201,8 +201,8 @@ public class FlasherConsole {
 	public static void doIdent() {
     		Enumeration<Object> e = Devices.listDevices(true);
     		if (!e.hasMoreElements()) {
-    			logger.error("No device is registered in Flashtool.");
-    			logger.error("You can only flash devices.");
+    			logger.error("沒有裝置適用於Flashtool");
+    			logger.error("你只能進行強刷動作");
     			return;
     		}
     		boolean found = false;
@@ -230,21 +230,21 @@ public class FlasherConsole {
     			found = true;
     			Devices.setCurrent((String)founditems.keys().nextElement());
     			if (!Devices.isWaitingForReboot())
-    				logger.info("Connected device : " + Devices.getCurrent().getId());
+    				logger.info("已連接裝置: " + Devices.getCurrent().getId());
     		}
     		else {
-    			logger.error("Cannot identify your device.");
-        		logger.error("You can only flash devices.");
+    			logger.error("無法驗證你的裝置");
+        		logger.error("你只能進行強刷動作");
     		}
     		if (found) {
     			if (!Devices.isWaitingForReboot()) {
-    				logger.info("Installed version of busybox : " + Devices.getCurrent().getInstalledBusyboxVersion(false));
-    				logger.info("Android version : "+Devices.getCurrent().getVersion()+" / kernel version : "+Devices.getCurrent().getKernelVersion());
+    				logger.info("已安裝的busybox版本: " + Devices.getCurrent().getInstalledBusyboxVersion(false));
+    				logger.info("Android版本: "+Devices.getCurrent().getVersion()+" / kernel version : "+Devices.getCurrent().getKernelVersion());
     			}
     			if (Devices.getCurrent().isRecovery()) {
-    				logger.info("Phone in recovery mode");
+    				logger.info("裝置在recovery模式");
     				if (!Devices.isWaitingForReboot())
-    					logger.info("Root Access Allowed");
+    					logger.info("已允許Root權限");
     			}
     			else {
     				boolean hasSU = Devices.getCurrent().hasSU();
@@ -252,13 +252,13 @@ public class FlasherConsole {
     					boolean hasRoot = Devices.getCurrent().hasRoot();
     					if (hasRoot)
     						if (!Devices.isWaitingForReboot())
-    							logger.info("Root Access Allowed");
+    							logger.info("已允許Root權限");
     				}
     			}
-    			logger.debug("Stop waiting for device");
+    			logger.debug("停止等待裝置連接...");
     			if (Devices.isWaitingForReboot())
     				Devices.stopWaitForReboot();
-    			logger.debug("End of identification");
+    			logger.debug("結束識別");
     		}
 	}
 

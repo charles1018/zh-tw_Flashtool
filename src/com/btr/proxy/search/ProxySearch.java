@@ -186,19 +186,19 @@ public class ProxySearch implements ProxySearchStrategy {
 	 ************************************************************************/
 	
 	public ProxySelector getProxySelector() {
-		logger.info("Executing search strategies to find proxy selector");
+		logger.info("檢查是否有可用的代理伺服器設定");
 		for (ProxySearchStrategy strat : this.strategies) {
 			try {
 				ProxySelector selector = strat.getProxySelector();
 				if (selector != null) {
 					selector = installBufferingAndFallbackBehaviour(selector);
-					logger.info("Proxy found for "+strat.getName());
+					logger.info("找到代理"+strat.getName());
 					return selector;
 				}
 				else
-					logger.info("No proxy found for "+strat.getName()+". Trying next one");
+					logger.info("沒有找到 " + strat.getName() + ". 上的代理伺服器. 繼續下一個...");
 			} catch (ProxyException e) {
-				logger.info("Strategy "+strat.getName()+" failed trying next one : "+e.getMessage());
+				logger.info("找不到 " + strat.getName() + " 上的代理設定: "+e.getMessage());
 				// Ignore and try next strategy.
 			}
 		}
@@ -232,7 +232,7 @@ public class ProxySearch implements ProxySearchStrategy {
 	 ************************************************************************/
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Proxy search: ");
+		StringBuilder sb = new StringBuilder("代理搜尋: ");
 		for (ProxySearchStrategy strat : this.strategies) {
 			sb.append(strat.getName());
 			sb.append(" ");

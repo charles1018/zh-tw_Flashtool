@@ -69,10 +69,10 @@ public class FileSet {
 	public boolean download() {
 		try {
 			if (new File(destFolder+File.separator+FSName).exists()) {
-				logger.info("This FILESET is already downloaded");
+				logger.info("檔案已經下載完成");
 				return true;
 			}
-			logger.info("Downloading "+FSName);
+			logger.info("正在下載"+FSName);
 			new File(destFolder).mkdirs();
 			Iterator<Integer> i = map.keySet().iterator();
 			ud = new URLDownloader();
@@ -83,7 +83,7 @@ public class FileSet {
 				String f = url.substring(url.lastIndexOf("/")+1);
 				if (map.size()>1) {
 					if (!new File(destFolder+File.separator+"Part_"+key+".flag").exists()) {
-						logger.info("   Downloading part "+key+" of "+map.size());
+						logger.info("正在下載"+key+" of "+map.size());
 						long downloaded  = ud.Download(url,destFolder+File.separator+FSName+"_temp",seek);
 						seek+=downloaded;
 						TextFile tf = new TextFile(destFolder+File.separator+"Part_"+key+".flag","ISO8859-1");
@@ -92,7 +92,7 @@ public class FileSet {
 						tf.close();
 					}
 					else {
-						logger.info("   Part "+key+" of "+map.size()+" already downloaded");
+						logger.info("   Part "+key+" of "+map.size()+"已經下載完成");
 						TextFile tf = new TextFile(destFolder+File.separator+"Part_"+key+".flag","ISO8859-1");
 						String sseek = tf.getLines().iterator().next();
 						seek = new Long(sseek);

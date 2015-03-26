@@ -70,7 +70,7 @@ public class X10flash {
     private void sendTA(File f) throws FileNotFoundException, IOException,X10FlashException {
     	try {
     		TaFile ta = new TaFile(f);
-    		logger.info("Flashing "+ta.getName());
+    		logger.info("寫入中"+ta.getName());
 			Vector<TaEntry> entries = ta.entries();
 			for (int i=0;i<entries.size();i++) {
 				TaEntry tent = entries.get(i);
@@ -82,12 +82,12 @@ public class X10flash {
 			}
     	}
     	catch (TaParseException tae) {
-    		logger.error("Error parsing TA file. Skipping");
+    		logger.error("TA檔案解構錯誤. 正在跳過...");
     	}
     }
 
     private void sendTA(TaFile ta) throws FileNotFoundException, IOException,X10FlashException {
-    		logger.info("Flashing "+ta.getName());
+    		logger.info("寫入中"+ta.getName());
 			Vector<TaEntry> entries = ta.entries();
 			for (int i=0;i<entries.size();i++) {
 				sendTAUnit(entries.get(i));
@@ -95,7 +95,7 @@ public class X10flash {
     }
 
     public void sendTAUnit(TaEntry ta) throws X10FlashException, IOException {
-		logger.info("Writing TA unit : "+HexDump.toHex(ta.getWordbyte()));
+		logger.info("正在寫入TA單位: "+HexDump.toHex(ta.getWordbyte()));
 		if (!_bundle.simulate()) {
 			cmd.send(Command.CMD13, ta.getWordbyte(),false);  
 		} 	
@@ -108,14 +108,14 @@ public class X10flash {
     		sunit = sunit.replace("]", "");
     		sunit = sunit.replace(",", "");
     		sunit = sunit.replace(" ", "");
-    		logger.info("Start Reading unit "+sunit);
-	        logger.debug((new StringBuilder("%%% read TA property id=")).append(unit).toString());
+    		logger.info("開始讀取單位"+sunit);
+	        logger.debug((new StringBuilder("%%% 讀取TA屬性 id=")).append(unit).toString());
 	        try {
 	        	cmd.send(Command.CMD12, BytesUtil.getBytesWord(unit, 4),false);
-	        	logger.info("Reading TA finished.");
+	        	logger.info("讀取TA完成");
 	        }
 	        catch (X10FlashException e) {
-	        	logger.info("Reading TA finished.");
+	        	logger.info("讀取TA完成");
 	        	return null;
 	        }
 	        if (cmd.getLastReplyLength()>0) {
@@ -135,7 +135,7 @@ public class X10flash {
     {
     	Vector<TaEntry> v = new Vector();
     	try {
-		    logger.info("Start Dumping TA");
+		    logger.info("開始解壓轉換TA");
 		    LogProgress.initProgress(9789);
 	        for(int i = 0; i < 4920; i++) {
 	        	try {
@@ -156,12 +156,12 @@ public class X10flash {
 	        	}
 	        }
 	        LogProgress.initProgress(0);
-	        logger.info("Dumping TA finished.");
+	        logger.info("解壓轉換完成");
 	    }
     	catch (Exception ioe) {
     		LogProgress.initProgress(0);
     		logger.error(ioe.getMessage());
-    		logger.error("Error dumping TA. Aborted");
+    		logger.error("解壓轉換TA錯誤，已停止動作");
     		closeDevice();
     	}
     	return v;
@@ -173,14 +173,14 @@ public class X10flash {
     	String folder = OS.getFolderMyDevices()+File.separator+getPhoneProperty("MSN")+File.separator+"s1ta"+File.separator+OS.getTimeStamp();
     	new File(folder).mkdirs();
     	TextFile tazone = new TextFile(folder+File.separator+partition+".ta","ISO8859-1");
-    	logger.info("TA partition "+partition+" saved to "+folder+File.separator+partition+".ta");
+    	logger.info("TA分區"+partition+"已儲存到"+folder+File.separator+partition+".ta");
         tazone.open(false);
     	try {
-		    logger.info("Start Dumping TA");
+		    logger.info("開始解壓轉換TA");
 		    LogProgress.initProgress(4920);
 	        for(int i = 0; i < 4920; i++) {
 	        	try {
-		        	logger.debug((new StringBuilder("%%% read TA property id=")).append(i).toString());
+		        	logger.debug((new StringBuilder("%%% 讀取TA屬性 id=")).append(i).toString());
 		        	cmd.send(Command.CMD12, BytesUtil.getBytesWord(i, 4),false);
 		        	String reply = cmd.getLastReplyHex();
 		        	reply = reply.replace("[", "");
@@ -202,7 +202,7 @@ public class X10flash {
 	        closeTA();
 	        LogProgress.initProgress(0);
     		logger.error(ioe.getMessage());
-    		logger.error("Error dumping TA. Aborted");
+    		logger.error("解壓轉換TA錯誤，已停止動作");
     	}
     }
     
@@ -215,7 +215,7 @@ public class X10flash {
     
     private void processHeader(SinFile sin) throws X10FlashException {
     	try {
-    		logger.info("    Checking header");
+    		logger.info("正在檢查檔案起始位址...");
     		SinFileHeader header = sin.getSinHeader();
 			for (int j=0;j<header.getNbChunks();j++) {
 				int cur = j+1;
@@ -236,10 +236,10 @@ public class X10flash {
     
     private void uploadImage(SinFile sin) throws X10FlashException {
     	try {
-    		logger.info("Processing "+sin.getShortFileName());
+    		logger.info("正在處理"+sin.getShortFileName());
     		logger.debug(sin);
 	    	processHeader(sin);
-	    	logger.info("    Flashing data");
+	    	logger.info("正在寫入資料");
 	    	logger.debug("Number of parts to send : "+sin.getNbChunks()+" / Part size : "+sin.getChunkSize());
 			for (int j=0;j<sin.getNbChunks();j++) {
 				int cur = j+1;
@@ -248,10 +248,10 @@ public class X10flash {
 				if (USBFlash.getLastFlags() == 0)
 					getLastError();
 			}
-			logger.info("Processing of "+sin.getShortFileName()+" finished.");
+			logger.info("處理完成： " + sin.getShortFileName());
     	}
     	catch (Exception e) {
-    		logger.error("Processing of "+sin.getShortFileName()+" finished with errors.");
+    		logger.error("處理完成，但有錯誤： " + sin.getShortFileName());
     		e.printStackTrace();
     		throw new X10FlashException (e.getMessage());
     	}
@@ -276,7 +276,7 @@ public class X10flash {
     	if ((nbfound == 0) || (nbfound > 1)) 
     		return "";
     	if (modded_loader)
-			logger.info("Using an unofficial loader");
+			logger.info("正在使用非官方loader");
     	return loader;
     }
 
@@ -295,7 +295,7 @@ public class X10flash {
 			if (!new File(loader).exists()) loader="";
 			if (loader.length()==0)
 				if (_bundle.hasLoader()) {
-					logger.info("Device loader has not been identified. Using the one from the bundle");
+					logger.info("裝置loader無法識別. 請使用韌體中的loader");
 					loader = _bundle.getLoader().getAbsolutePath();
 				}
 		}
@@ -483,12 +483,12 @@ public class X10flash {
     
     public void flashDevice() {
     	try {
-		    logger.info("Start Flashing");
+		    logger.info("開始寫入");
 		    sendLoader();
 		    maxpacketsize=Integer.parseInt(phoneprops.getProperty("MAX_PKT_SZ"),16);
 		    LogProgress.initProgress(_bundle.getMaxProgress(maxpacketsize));
 		    if (_bundle.hasCmd25()) {
-		    	logger.info("Disabling final data verification check");
+		    	logger.info("停用最終識別檢查");
 		    	cmd.send(Command.CMD25, Command.DISABLEFINALVERIF, false);
 		    }
 		    setFlashState(true);
@@ -504,20 +504,20 @@ public class X10flash {
         	setFlashState(false);
         	sendTAFiles();
 		    if (_bundle.hasResetStats()) {
-		    	logger.info("Resetting customizations");
+		    	logger.info("正在重設為原廠設定...");
 		    	resetStats();
 		    }
         	closeDevice(0x01);
-			logger.info("Flashing finished.");
-			logger.info("Please unplug and start your phone");
-			logger.info("For flashtool, Unknown Sources and Debugging must be checked in phone settings");
+			logger.info("寫入完成");
+			logger.info("請移除連接線並重啟你的裝置");
+			logger.info("如果想繼續使用FlashTool，請在設定中打開USB偵錯和未知來源");
 			LogProgress.initProgress(0);
     	}
     	catch (Exception ioe) {
     		ioe.printStackTrace();
     		closeDevice();
     		logger.error(ioe.getMessage());
-    		logger.error("Error flashing. Aborted");
+    		logger.error("寫入錯誤，已停止動作");
     		LogProgress.initProgress(0);
     	}
     }
@@ -543,12 +543,12 @@ public class X10flash {
     }
 
     public void endSession() throws X10FlashException,IOException {
-    	logger.info("Ending flash session");
+    	logger.info("當前部分寫入已結束");
     	cmd.send(Command.CMD04,Command.VALNULL,false);
     }
 
     public void endSession(int param) throws X10FlashException,IOException {
-    	logger.info("Ending flash session");
+    	logger.info("當前部分寫入已結束");
     	cmd.send(Command.CMD04,BytesUtil.getBytesWord(param, 1),false);
     }
 
@@ -593,7 +593,7 @@ public class X10flash {
     	try {
     		USBFlash.open("ADDE");
     		try {
-				logger.info("Reading device information");
+				logger.info("正在讀取裝置資料");
 				USBFlash.readS1Reply();
 				firstRead = new String (USBFlash.getLastReply());
 				phoneprops = new LoaderInfo(firstRead);

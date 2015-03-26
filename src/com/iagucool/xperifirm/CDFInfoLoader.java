@@ -132,7 +132,7 @@ public class CDFInfoLoader
 			catch (IOException e)
 			{
 				Element error = doc.createElement("error");
-				error.setAttribute("message", "The file could not be found or it is invalid");
+				error.setAttribute("訊息", "無法找到檔案或檔案無效");
 				rootNode.appendChild(error);
 			}
 	}

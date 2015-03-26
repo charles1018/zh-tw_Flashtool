@@ -35,11 +35,11 @@ public class BundleEntry {
 	}
 	public InputStream getInputStream() throws FileNotFoundException, IOException {
 		if (fileentry!=null) {
-			logger.info("Streaming from file : "+fileentry.getPath());
+			logger.info("從檔案中取得串流: "+fileentry.getPath());
 			return new FileInputStream(fileentry);
 		}
 		else {
-			logger.debug("Streaming from jar entry : "+jarentry.getName());
+			logger.debug("從jar檔案中取得串流: "+jarentry.getName());
 			return _bundle.getImageStream(jarentry);
 		}
 	}
